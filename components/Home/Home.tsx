@@ -1,60 +1,56 @@
 import * as React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack'; 
-import { NavigationContainer } from '@react-navigation/native'; 
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 
 const Home = ({navigation}) => {
+  const navigateToFilterScreen = () => {
+    navigation.navigate('FilterCamera');
+  };
 
-const navigateToFilterScreen = () => {
-    navigation.navigate('FilterCamera'); 
-}; 
-
-const navigateToStickerScreen = () => {
+  const navigateToStickerScreen = () => {
     navigation.navigate('StickerCamera');
-};
+  };
 
-
-    return(
-        <View style={styles.container}>
+  return (
+    <View style={styles.container}>
       {/* title */}
-      <Text style={styles.title}>
-        돌하르방 카메라
-      </Text>
+      <Text style={styles.title}>돌하르방 카메라</Text>
 
       {/* button 1 : filter camera  */}
-      <Button 
-      style = {styles.mainButtonStyle}
-      onPress={() => {navigateToFilterScreen()}}
-      title={"필터 카메라"}
+      <Button
+        style={styles.mainButtonStyle}
+        onPress={() => {
+          navigateToFilterScreen();
+        }}
+        title={'필터 카메라'}
       />
       {/* 버튼과 버튼 사이를 띄워두고 싶은데 어떻게 해야하지 ...? */}
-      <View style={styles.space}/>
+      <View style={styles.space} />
       {/* button 2 : sticker camera */}
-      <Button 
-      onPress={() => navigateToStickerScreen()}
-      title={"스티커 카메라"}
+      <Button
+        onPress={() => navigateToStickerScreen()}
+        title={'스티커 카메라'}
       />
     </View>
-    ); 
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1, 
-        flexDirection : 'column', 
-        alignItems : 'center', 
-        justifyContent : 'center',
-    }, 
-    title : {
-      fontSize : 30, 
-      margin : 40
-    },
-    mainButtonStyle : {
-  
-    }, 
-    space : {
-      margin : 10
-    }
-  })
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 30,
+    margin: 40,
+  },
+  mainButtonStyle: {},
+  space: {
+    margin: 10,
+  },
+});
 
-  export default Home; 
+export default Home;
