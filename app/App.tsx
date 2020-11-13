@@ -2,9 +2,9 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Home from './components/Home/Home';
-import StickerCamera from './components/StickerCamera/StickerCamera';
-import FilterCamera from './components/FilterCamera/FilterCamera';
+import Home from './screens/Home/Home';
+import StickerCamera from './screens/StickerCamera/StickerCamera';
+import FilterCamera from './screens/FilterCamera/FilterCamera';
 
 const App = () => {
   const Stack = createStackNavigator();
