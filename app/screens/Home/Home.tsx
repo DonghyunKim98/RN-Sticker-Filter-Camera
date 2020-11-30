@@ -1,7 +1,42 @@
 import * as React from 'react';
-import {Text, View, Button, StyleSheet} from 'react-native';
+import {Text, View, Button, StyleSheet, Platform ,PermissionsAndroid} from 'react-native';
+import CameraRoll from "@react-native-community/cameraroll"
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
+
+async function hasAndroidPermission() : Promise<boolean> {
+  const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+  const hasPermission = await PermissionsAndroid.check(permission);
+  if (hasPermission) {
+    return true;
+  }
+  const status = await PermissionsAndroid.request(permission);
+  return status === 'granted';
+}
+
+const requestCameraPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      {
+        title: "돌하르방에게 카메라를 허락해주세요!",
+        message:
+          "Cool Photo App needs access to your camera " +
+          "so you can take awesome pictures.",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK"
+      }
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log("You can use the camera");
+    } else {
+      console.log("Camera permission denied");
+    }
+  } catch (err) {
+    console.warn(err);
+  }
+};
 
 const Home = ({navigation}) => {
   const navigateToFilterScreen = () => {
@@ -31,6 +66,11 @@ const Home = ({navigation}) => {
       <Button
         onPress={() => navigateToStickerScreen()}
         title={'스티커 카메라'}
+      />
+      {/*임시 버튼 => Permission을 구하는 버튼입니다. */}
+      <Button
+        title={'Camera Permission'}
+        onPress={requestCameraPermission}
       />
     </View>
   );
