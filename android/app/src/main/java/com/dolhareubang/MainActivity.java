@@ -5,6 +5,7 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactPackage;
 
 import java.util.List;
+import java.util.Arrays;
 
 public class MainActivity extends ReactActivity {
   
@@ -16,13 +17,10 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "dolhareubang";
   }
-  
+
   protected List<ReactPackage> getPackages() {
-    @SuppressWarnings("UnnecessaryLocalVariable")
-    List<ReactPackage> packages = new PackageList(this).getPackages();
-    // Packages that cannot be autolinked yet can be added manually here, for example:
-    // packages.add(new MyReactNativePackage());
-    packages.add(new CameraRollPackage()); // <-- Add this line with your package name.
-    return packages;
-  }
+     return Arrays.<ReactPackage>asList(
+         new CameraRollPackage() //Add your package here
+     );
+   }
 }
