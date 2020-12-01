@@ -4,20 +4,13 @@ import CameraRoll from "@react-native-community/cameraroll"
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
-async function hasAndroidPermission() : Promise<boolean> {
-  const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
-  const hasPermission = await PermissionsAndroid.check(permission);
-  if (hasPermission) {
-    return true;
-  }
-  const status = await PermissionsAndroid.request(permission);
-  return status === 'granted';
-}
-
 const requestCameraPermission = async () => {
   try {
+    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+    const hasPermission =  await PermissionsAndroid.check(permission);
+    if(hasPermission) return true;
     const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
+      permission,
       {
         title: "돌하르방에게 카메라를 허락해주세요!",
         message:
@@ -70,7 +63,7 @@ const Home = ({navigation}) => {
       {/*임시 버튼 => Permission을 구하는 버튼입니다. */}
       <Button
         title={'Camera Permission'}
-        onPress={requestCameraPermission}
+        onPress={()=>requestCameraPermission()}
       />
     </View>
   );
