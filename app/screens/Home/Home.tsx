@@ -4,6 +4,23 @@ import {requestCameraPermission} from '../../utils/camerPermission';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
+const styles = StyleSheet.create({
+	container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 30,
+    margin: 40,
+  },
+  mainButtonStyle: {},
+  space: {
+    margin: 10,
+  },
+});
+
 const Home = ({navigation}) => {
   const navigateToFilterScreen = () => {
     navigation.navigate('FilterCamera');
@@ -42,21 +59,6 @@ const Home = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 30,
-    margin: 40,
-  },
-  mainButtonStyle: {},
-  space: {
-    margin: 10,
-  },
-});
+
 
 export default Home;

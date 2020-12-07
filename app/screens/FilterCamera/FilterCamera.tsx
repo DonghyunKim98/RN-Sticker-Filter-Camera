@@ -4,7 +4,7 @@ import {Text, View, Button, StyleSheet} from 'react-native';
 const FilterCamera = () => (
 	<View>
 		<Text>Filter Camera Screen</Text>
-  </View>
+	</View>
 );
 
 export default FilterCamera;

@@ -4,7 +4,7 @@ import {Text, View, Button, StyleSheet} from 'react-native';
 const StickerCamera = () => (
 	<View>
 		<Text>Sticker Camera Screen</Text>
-  </View>
+	</View>
 );
 
 export default StickerCamera;
