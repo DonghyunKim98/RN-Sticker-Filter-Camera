@@ -7,7 +7,7 @@ export const requestCameraPermission = async () => {
 		const hasPermission = await PermissionsAndroid.check(permission);
 
 		if (hasPermission) return true;
-		const granted = await PermissionsAndroid.request(
+		await PermissionsAndroid.request(
 			permission,
 			permissionMessage,
 		);
