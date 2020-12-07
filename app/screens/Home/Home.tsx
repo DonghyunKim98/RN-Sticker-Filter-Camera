@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Text, View, Button, StyleSheet, PermissionsAndroid} from 'react-native';
-import {requestCameraPermission} from "../../utils/camerPermission";
+import {requestCameraPermission} from '../../utils/camerPermission';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 

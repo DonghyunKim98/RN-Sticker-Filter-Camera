@@ -1,5 +1,5 @@
 import {PermissionsAndroid} from 'react-native';
-import {permissionMessage} from "../static/permissionMessage";
+import {permissionMessage} from '../static/permissionMessage';
 
 export const requestCameraPermission = async () => {
   try {
