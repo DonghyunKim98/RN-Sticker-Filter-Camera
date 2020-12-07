@@ -16,7 +16,6 @@ export const requestCameraPermission = async (): Promise<boolean | any> => {
 			return false;
 		}
 	} catch (err) {
-		console.warn(err);
 		throw new Error("Asking camera permission failed.");
 	}
 };
