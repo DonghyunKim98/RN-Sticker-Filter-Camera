@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {Text, View, Button, StyleSheet ,PermissionsAndroid} from 'react-native';
+import {Text, View, Button, StyleSheet, PermissionsAndroid} from 'react-native';
 import {requestCameraPermission} from "../../utils/camerPermission";
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-
 
 const Home = ({navigation}) => {
   const navigateToFilterScreen = () => {
@@ -34,11 +33,11 @@ const Home = ({navigation}) => {
         onPress={() => navigateToStickerScreen()}
         title={'스티커 카메라'}
       />
-      {/*임시 버튼 => Permission을 구하는 버튼입니다. */}
+      {/* 임시 버튼 => Permission을 구하는 버튼입니다. */}
       <Button
         title={'Camera Permission'}
-        onPress={()=>requestCameraPermission()}
-      />
+        onPress={() => requestCameraPermission()}
+			/>
     </View>
   );
 };
