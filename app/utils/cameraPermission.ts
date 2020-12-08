@@ -1,69 +1,31 @@
 import {PermissionsAndroid} from 'react-native';
 import {permissionMessage} from '../static/permissionMessage';
 
-export const requestWriteStoragePermission = async (): Promise<boolean | any> => {
+export const androidPermission = async (permissionCode : String) => {
 	try {
-		const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+		let permission;
+
+		if (permissionCode === "CAMERA") {
+			permission = PermissionsAndroid.PERMISSIONS.CAMERA;
+		} else if (permissionCode === "EXTERNAL_STORAGE") {
+			permission = PermissionsAndroid.PERMISSIONS.EXTERNAL_STORAGE;
+		} else if (permissionCode === "READ_EXTERNAL_STORAGE") {
+			permission = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
+		} else {
+			throw new Error('해당 permission은 존재하지 않습니다.');
+		}
 		const hasPermission = await PermissionsAndroid.check(permission);
 
 		if (hasPermission) {
-			return true;
+			return;
 		} else {
 			await PermissionsAndroid.request(
 				permission,
 				permissionMessage,
 			);
-			return false;
+			return;
 		}
 	} catch (err) {
-		throw new Error("Asking storage permission failed.");
-	}
-};
-
-export const requestCameraPermission = async () => {
-	try {
-		const granted = await PermissionsAndroid.request(
-			PermissionsAndroid.PERMISSIONS.CAMERA,
-			{
-				title: 'Cool Photo App Camera Permission',
-				message:
-					'Cool Photo App needs access to your camera ' +
-					'so you can take awesome pictures.',
-				buttonNeutral: 'Ask Me Later',
-				buttonNegative: 'Cancel',
-				buttonPositive: 'OK',
-			},
-		);
-
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-			console.log('You can use the camera');
-		} else {
-			console.log('Camera permission denied');
-		}
-	} catch (err) {
-		console.warn(err);
-	}
-};
-
-export const requestReadStoragePermission = async () => {
-	try {
-		const granted = await PermissionsAndroid.request(
-			PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-			{
-				title: 'Permission to read storage files',
-				message: 'Cool Photo App needs access to your storage ',
-				buttonNeutral: 'Ask Me Later',
-				buttonNegative: 'Cancel',
-				buttonPositive: 'OK',
-			},
-		);
-
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-			console.log('You can read the external storage');
-		} else {
-			console.log('read external storage permission denied');
-		}
-	} catch (err) {
-		console.warn(err);
+		throw new Error('Asking storage permission failed.');
 	}
 };

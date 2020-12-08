@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {Image, View, Button, StyleSheet, Text} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import {
-	requestCameraPermission,
-	requestReadStoragePermission,
+	androidPermission,
 } from '../../utils/cameraPermission';
 import {stickerCameraOptions} from '../../static/imagePickerOption';
 
@@ -27,7 +26,7 @@ const StickerCamera = () => {
 			console.log(response);
 			if (response.error != null) {
 				if (response.error.match('Permissions')) {
-					requestCameraPermission();
+					androidPermission("CAMERA");
 				}
 			} else {
 				setPhotoUri(response.uri);
@@ -38,7 +37,7 @@ const StickerCamera = () => {
 	const onOpenGalleryClick = (): void => {
 		ImagePicker.launchImageLibrary(stickerCameraOptions, (response) => {
 			// move this to another file later
-			requestReadStoragePermission();
+			androidPermission("READ_EXTERNAL_STORAGE");
 			console.log(response);
 
 			if (response.error != null) {
