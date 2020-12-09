@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
-import {requestCameraPermission} from '../../utils/cameraPermission';
+import {androidPermission} from '../../utils/cameraPermission';
 
 const styles = StyleSheet.create({
 	container: {
@@ -51,7 +51,7 @@ const Home = ({navigation}) => {
 			{/* 임시 버튼 => Permission을 구하는 버튼입니다. */}
 			<Button
 				title={'Camera Permission'}
-				onPress={() => requestCameraPermission()}
+				onPress={() => androidPermission("CAMERA")}
 			/>
 		</View>
 	);
