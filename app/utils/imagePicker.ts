@@ -1,8 +1,8 @@
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker, {ImagePickerOptions} from 'react-native-image-picker';
 import {androidPermission} from './cameraPermission';
 
-export const LaunchCamera = (option): Promise<string | any> => {
-	return new Promise((resolve, reject) => {
+export const LaunchCamera = (option: ImagePickerOptions): Promise<string | any> => (
+	new Promise((resolve, reject) => {
 		ImagePicker.launchCamera(option, (res) => {
 			if (res.error != null) {
 				if (res.error.match('Permissions')) {
@@ -13,11 +13,11 @@ export const LaunchCamera = (option): Promise<string | any> => {
 				resolve(res.uri);
 			}
 		});
-	});
-};
+	})
+);
 
-export const LaunchGallery = (option): Promise<string | any> => {
-	return new Promise((resolve, reject) => {
+export const LaunchGallery = (option: ImagePickerOptions): Promise<string | any> => (
+	new Promise((resolve, reject) => {
 		ImagePicker.launchImageLibrary(option, (res) => {
 			if (res.error != null) {
 				if (res.error.match('Permissions')) {
@@ -28,5 +28,5 @@ export const LaunchGallery = (option): Promise<string | any> => {
 				resolve(res.uri);
 			}
 		});
-	});
-};
+	})
+);

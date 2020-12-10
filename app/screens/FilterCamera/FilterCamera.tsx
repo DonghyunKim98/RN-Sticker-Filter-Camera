@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 	btn: {},
 });
 
-function FilterCamera(): React.ReactNode {
+function FilterCamera() {
 	const [photoUri, setPhotoUri] = useState<string>('');
 	const CameraBtnClickListener = (): void => {
 		LaunchCamera(filterCameraOptions)
@@ -45,8 +45,8 @@ function FilterCamera(): React.ReactNode {
 			});
 	};
 
-	const SumbitBtnClickListener = () => {
-		console.log("제출!");
+	const SubmitBtnClickListener = () => {
+		console.log('제출!');
 	};
 
 	return (
@@ -60,9 +60,7 @@ function FilterCamera(): React.ReactNode {
 						}}
 					/>
 				) : (
-					<Text>
-						사진이 아직 없어요!
-					</Text>
+					<Text>사진이 아직 없어요!</Text>
 				)}
 			</View>
 			<View style={styles.footer}>
@@ -84,7 +82,7 @@ function FilterCamera(): React.ReactNode {
 					title="제출"
 					style={styles.btn}
 					onPress={() => {
-						SumbitBtnClickListener();
+						SubmitBtnClickListener();
 					}}
 				/>
 			</View>
