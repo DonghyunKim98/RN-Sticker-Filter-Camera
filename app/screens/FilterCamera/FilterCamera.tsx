@@ -16,22 +16,33 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 	},
-	img: {},
+	img: {
+		width: 100,
+		height: 200,
+	},
 	btn: {},
 });
 
 function FilterCamera(): React.ReactNode {
 	const [photoUri, setPhotoUri] = useState<string>('');
 	const CameraBtnClickListener = (): void => {
-		const newUri = LaunchCamera(filterCameraOptions);
-
-		if (newUri !== '') setPhotoUri(newUri);
+		LaunchCamera(filterCameraOptions)
+			.then((newUri) => {
+				if (newUri !== '') setPhotoUri(newUri);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const GalleryBtnClickListener = () => {
-		const newUri = LaunchGallery(filterCameraOptions);
-
-		if (newUri !== '') setPhotoUri(newUri);
+		LaunchGallery(filterCameraOptions)
+			.then((newUri) => {
+				if (newUri !== '') setPhotoUri(newUri);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const SumbitBtnClickListener = () => {
