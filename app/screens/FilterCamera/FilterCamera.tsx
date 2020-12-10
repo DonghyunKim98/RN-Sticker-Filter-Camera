@@ -1,5 +1,7 @@
-import React from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {Image, Text, View, Button, StyleSheet} from 'react-native';
+import {filterCameraOptions} from '../../static/imagePickerOption';
+import {LaunchCamera, LaunchGallery} from './../../utils/imagePicker';
 
 const styles = StyleSheet.create({
 	container: {
@@ -14,17 +16,22 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 	},
+	img: {},
 	btn: {},
 });
 
-
 function FilterCamera(): React.ReactNode {
-	const GalleryBtnClickListener = () => {
-		console.log("갤러리!");
+	const [photoUri, setPhotoUri] = useState<string>('');
+	const CameraBtnClickListener = (): void => {
+		const newUri = LaunchCamera(filterCameraOptions);
+
+		if (newUri !== '') setPhotoUri(newUri);
 	};
 
-	const CameraBtnClickListener = () => {
-		console.log("카메라!");
+	const GalleryBtnClickListener = () => {
+		const newUri = LaunchGallery(filterCameraOptions);
+
+		if (newUri !== '') setPhotoUri(newUri);
 	};
 
 	const SumbitBtnClickListener = () => {
@@ -34,9 +41,18 @@ function FilterCamera(): React.ReactNode {
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				<Text>
-					{`필터카메라`}
-				</Text>
+				{photoUri !== '' ? (
+					<Image
+						style={styles.img}
+						source={{
+							uri: `${photoUri}`,
+						}}
+					/>
+				) : (
+					<Text>
+						사진이 아직 없어요!
+					</Text>
+				)}
 			</View>
 			<View style={styles.footer}>
 				<Button
