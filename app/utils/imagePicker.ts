@@ -6,12 +6,12 @@ export const LaunchCamera = (option: ImagePickerOptions): Promise<string | any> 
 		ImagePicker.launchCamera(option, (res) => {
 			if (!res.error) {
 				resolve(res.uri);
-			} else if (res.error.match('Permissions')) {
+			}
+			if (res.error.match('Permissions')) {
 				androidPermission('CAMERA');
 				reject('Permission denied');
-			} else {
-				reject(res.error);
 			}
+			reject(res.error);
 		});
 	})
 );
@@ -21,12 +21,12 @@ export const LaunchGallery = (option: ImagePickerOptions): Promise<string | any>
 		ImagePicker.launchImageLibrary(option, (res) => {
 			if (!res.error) {
 				resolve(res.uri);
-			} else if (res.error.match('Permissions')) {
+			}
+			if (res.error.match('Permissions')) {
 				androidPermission('CAMERA');
 				reject('Permission denied');
-			} else {
-				reject(res.error);
 			}
+			reject(res.error);
 		});
 	})
 );
