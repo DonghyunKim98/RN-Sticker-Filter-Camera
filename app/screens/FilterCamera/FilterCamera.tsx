@@ -28,20 +28,20 @@ function FilterCamera() {
 	const CameraBtnClickListener = (): void => {
 		LaunchCamera(filterCameraOptions)
 			.then((newUri) => {
-				if (newUri !== '') setPhotoUri(newUri);
+				setPhotoUri(newUri);
 			})
 			.catch((err) => {
-				console.log(err);
+				Error(err);
 			});
 	};
 
-	const GalleryBtnClickListener = () => {
+	const GalleryBtnClickListener = (): void => {
 		LaunchGallery(filterCameraOptions)
 			.then((newUri) => {
-				if (newUri !== '') setPhotoUri(newUri);
+				setPhotoUri(newUri);
 			})
 			.catch((err) => {
-				console.log(err);
+				Error(err);
 			});
 	};
 

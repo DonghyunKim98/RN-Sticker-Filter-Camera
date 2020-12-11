@@ -4,13 +4,13 @@ import {androidPermission} from './cameraPermission';
 export const LaunchCamera = (option: ImagePickerOptions): Promise<string | any> => (
 	new Promise((resolve, reject) => {
 		ImagePicker.launchCamera(option, (res) => {
-			if (res.error != null) {
-				if (res.error.match('Permissions')) {
-					androidPermission('CAMERA');
-					reject('Permission denied');
-				}
-			} else {
+			if (!res.error) {
 				resolve(res.uri);
+			} else if (res.error.match('Permissions')) {
+				androidPermission('CAMERA');
+				reject('Permission denied');
+			} else {
+				reject(res.error);
 			}
 		});
 	})
@@ -19,13 +19,13 @@ export const LaunchCamera = (option: ImagePickerOptions): Promise<string | any> 
 export const LaunchGallery = (option: ImagePickerOptions): Promise<string | any> => (
 	new Promise((resolve, reject) => {
 		ImagePicker.launchImageLibrary(option, (res) => {
-			if (res.error != null) {
-				if (res.error.match('Permissions')) {
-					androidPermission('CAMERA');
-					reject('Permission denied');
-				}
-			} else {
+			if (!res.error) {
 				resolve(res.uri);
+			} else if (res.error.match('Permissions')) {
+				androidPermission('CAMERA');
+				reject('Permission denied');
+			} else {
+				reject(res.error);
 			}
 		});
 	})
