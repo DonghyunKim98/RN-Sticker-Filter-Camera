@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Image, Text, View, Button, StyleSheet} from 'react-native';
+import {Image, Text, View, StyleSheet} from 'react-native';
 import {filterCameraOptions} from '../../static/imagePickerOption';
 import {LaunchCamera, LaunchGallery} from './../../utils/imagePicker';
+import FilterCamerBtn from './FilterCamerBtn';
 
 const styles = StyleSheet.create({
 	container: {
@@ -64,26 +65,20 @@ function FilterCamera() {
 				)}
 			</View>
 			<View style={styles.footer}>
-				<Button
+				<FilterCamerBtn
 					title="카메라"
 					style={styles.btn}
-					onPress={() => {
-						CameraBtnClickListener();
-					}}
+					onPressFunc={CameraBtnClickListener}
 				/>
-				<Button
+				<FilterCamerBtn
 					title="갤러리"
 					style={styles.btn}
-					onPress={() => {
-						GalleryBtnClickListener();
-					}}
+					onPressFunc={GalleryBtnClickListener}
 				/>
-				<Button
+				<FilterCamerBtn
 					title="제출"
 					style={styles.btn}
-					onPress={() => {
-						SubmitBtnClickListener();
-					}}
+					onPressFunc={SubmitBtnClickListener}
 				/>
 			</View>
 		</View>
