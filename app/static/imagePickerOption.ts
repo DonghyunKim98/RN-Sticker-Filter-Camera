@@ -12,3 +12,16 @@ export const stickerCameraOptions = {
 		okTitle: 'OK',
 	},
 };
+
+export const filterCameraOptions = {
+	storageOptions: {
+		skipBackup: true,
+		path: './images',
+	},
+	permissionDenied: {
+		title: '카메라 허용이 거부됐습니다.',
+		text: '돌하르방은 카메라가 필요해요 ㅠㅠ.',
+		reTryTitle: '다시!',
+		okTitle: 'OK',
+	},
+};
