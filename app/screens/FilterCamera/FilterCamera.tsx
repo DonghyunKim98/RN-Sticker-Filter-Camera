@@ -8,20 +8,18 @@ function FilterCamera() {
 	const Stack = createStackNavigator();
 
 	return (
-		<NavigationContainer>
-			<Stack.Navigator>
-				<Stack.Screen
-					name="Selection"
-					component={FilterCameraSelctionScreen}
-					options={{title: '사진 선택하기'}}
-				/>
-				<Stack.Screen
-					name="Result"
-					component={FilterCameraResultScreen}
-					options={{title: '필터 적용하기'}}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
+		<Stack.Navigator>
+			<Stack.Screen
+				name="Selection"
+				component={FilterCameraSelctionScreen}
+				options={{title: '사진 선택하기'}}
+			/>
+			<Stack.Screen
+				name="Result"
+				component={FilterCameraResultScreen}
+				options={{title: '필터 적용하기'}}
+			/>
+		</Stack.Navigator>
 	);
 }
 
