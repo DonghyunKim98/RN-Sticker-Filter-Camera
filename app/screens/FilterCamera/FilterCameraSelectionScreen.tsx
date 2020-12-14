@@ -10,61 +10,50 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 	},
 	content: {
-		flex: 4,
-	},
-	footer: {
 		flex: 1,
-		flexDirection: 'row',
-		flexWrap: 'wrap',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
-	img: {
-		width: 100,
-		height: 200,
-	},
-	btn: {},
+	bnt: {
+		padding: 10,
+	}
 });
 
-function FilterCameraSelctionScreen() {
+function FilterCameraSelctionScreen({navigation}) {
 	const [photoUri, setPhotoUri] = useState<string>('');
-	const CameraBtnClickListener = (): void => {
+	const CameraBtnClickListener = () : void => {
 		LaunchCamera(filterCameraOptions)
 			.then((newUri) => {
 				setPhotoUri(newUri);
 			})
-			.catch((err) => {
-				Error(err);
-			});
-	};
-
-	const GalleryBtnClickListener = (): void => {
-		LaunchGallery(filterCameraOptions)
-			.then((newUri) => {
-				setPhotoUri(newUri);
+			.then(() => {
+				navigation.navigate('Result', {
+					photoUri,
+				});
 			})
 			.catch((err) => {
 				Error(err);
 			});
 	};
 
-	const SubmitBtnClickListener = () => {
-		console.log('제출!');
+	const GalleryBtnClickListener = () : void => {
+		LaunchGallery(filterCameraOptions)
+			.then((newUri) => {
+				setPhotoUri(newUri);
+			})
+			.then(() => {
+				navigation.navigate('Result', {
+					photoUri,
+				});
+			})
+			.catch((err) => {
+				Error(err);
+			});
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				{photoUri !== '' ? (
-					<Image
-						style={styles.img}
-						source={{
-							uri: `${photoUri}`,
-						}}
-					/>
-				) : (
-					<Text>사진이 아직 없어요!</Text>
-				)}
-			</View>
-			<View style={styles.footer}>
 				<FilterCamerBtn
 					title="카메라"
 					style={styles.btn}
@@ -74,11 +63,6 @@ function FilterCameraSelctionScreen() {
 					title="갤러리"
 					style={styles.btn}
 					onPressFunc={GalleryBtnClickListener}
-				/>
-				<FilterCamerBtn
-					title="제출"
-					style={styles.btn}
-					onPressFunc={SubmitBtnClickListener}
 				/>
 			</View>
 		</View>
