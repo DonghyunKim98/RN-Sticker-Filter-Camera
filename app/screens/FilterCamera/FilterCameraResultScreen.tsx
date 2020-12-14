@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Image, View, Text, Button} from 'react-native';
+import {StyleSheet, Image, View, Text} from 'react-native';
+import FilterBtn from './FilterBtn';
 
 const styles = StyleSheet.create({
 	container: {
@@ -25,6 +26,9 @@ const styles = StyleSheet.create({
 
 function FilterCameraResultScreen({route}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
+	const FilterBtnClickListener = () : void => {
+		console.log("필터 버튼!");
+	};
 
 	return (
 		<View style={styles.container}>
@@ -40,17 +44,20 @@ function FilterCameraResultScreen({route}) {
 				)}
 			</View>
 			<View style={styles.footer}>
-				<Button
+				<FilterBtn
 					title={'필터 버튼 1번'}
 					style={styles.filterBtn}
+					onPressFunc={FilterBtnClickListener}
 				/>
-				<Button
+				<FilterBtn
 					title={'필터 버튼 2번'}
 					style={styles.filterBtn}
+					onPressFunc={FilterBtnClickListener}
 				/>
-				<Button
+				<FilterBtn
 					title={'필터 버튼 3번'}
 					style={styles.filterBtn}
+					onPressFunc={FilterBtnClickListener}
 				/>
 			</View>
 		</View>

@@ -7,7 +7,7 @@ export const LaunchCamera = (option: ImagePickerOptions): Promise<string | any> 
 			if (!res.error && !res.didCancel) {
 				resolve(res.uri);
 			} else if (res.didCancel) {
-				reject('Canceld');
+				reject('Canceled');
 			} else if (res.error.match('Permissions')) {
 				androidPermission('CAMERA');
 				reject('Permission denied');
@@ -22,7 +22,7 @@ export const LaunchGallery = (option: ImagePickerOptions): Promise<string | any>
 			if (!res.error && !res.didCancel) {
 				resolve(res.uri);
 			} else if (res.didCancel) {
-				reject('Canceld');
+				reject('Canceled');
 			} else if (res.error.match('Permissions')) {
 				androidPermission('CAMERA');
 				reject('Permission denied');

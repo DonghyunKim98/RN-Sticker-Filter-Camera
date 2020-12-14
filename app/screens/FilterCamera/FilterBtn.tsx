@@ -6,8 +6,7 @@ interface ButtonProps {
     style: object,
     onPressFunc: Function,
 }
-
-function FilterCameraSelectionBtn({title, style, onPressFunc}: ButtonProps) {
+function FilterBtn({title, style, onPressFunc}: ButtonProps) {
 	return (
 		<Button
 			title={title}
@@ -17,4 +16,4 @@ function FilterCameraSelectionBtn({title, style, onPressFunc}: ButtonProps) {
 	);
 }
 
-export default FilterCameraSelectionBtn;
+export default FilterBtn;
