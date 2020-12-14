@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Image, Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {filterCameraOptions} from '../../static/imagePickerOption';
 import {LaunchCamera, LaunchGallery} from '../../utils/imagePicker';
-import FilterCamerBtn from './FilterCamerBtn';
+import FilterCameraSelectionBtn from './FilterCameraSelectionBtn';
 
 const styles = StyleSheet.create({
 	container: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 	},
 	bnt: {
 		padding: 10,
-	}
+	},
 });
 
 function FilterCameraSelctionScreen({navigation}) {
@@ -54,12 +54,12 @@ function FilterCameraSelctionScreen({navigation}) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				<FilterCamerBtn
+				<FilterCameraSelectionBtn
 					title="카메라"
 					style={styles.btn}
 					onPressFunc={CameraBtnClickListener}
 				/>
-				<FilterCamerBtn
+				<FilterCameraSelectionBtn
 					title="갤러리"
 					style={styles.btn}
 					onPressFunc={GalleryBtnClickListener}
