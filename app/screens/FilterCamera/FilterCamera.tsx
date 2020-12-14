@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import FilterCameraSelctionScreen from './FilterCameraSelectionScreen';
 import FilterCameraResultScreen from './FilterCameraResultScreen';
@@ -16,7 +17,16 @@ function FilterCamera() {
 			<Stack.Screen
 				name="Result"
 				component={FilterCameraResultScreen}
-				options={{title: '필터 적용하기'}}
+				options={{
+					headerTitle: '필터 적용하기',
+					headerRight: () => (
+						<Button
+							onPress={() => console.log('저장 되었습니다!')}
+							title="저장"
+							color='blue'
+						/>
+					),
+				}}
 			/>
 		</Stack.Navigator>
 	);
