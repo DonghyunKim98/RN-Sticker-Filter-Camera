@@ -24,11 +24,11 @@ function FilterCameraSelctionScreen({navigation}) {
 	const CameraBtnClickListener = () : void => {
 		LaunchCamera(filterCameraOptions)
 			.then((newUri) => {
-				setPhotoUri(newUri);
-			})
-			.then(() => {
-				navigation.navigate('Result', {
-					photoUri,
+				setPhotoUri(() => {
+					navigation.navigate('Result', {
+						photoUri: newUri,
+					});
+					return newUri;
 				});
 			})
 			.catch((err) => {
@@ -39,11 +39,11 @@ function FilterCameraSelctionScreen({navigation}) {
 	const GalleryBtnClickListener = () : void => {
 		LaunchGallery(filterCameraOptions)
 			.then((newUri) => {
-				setPhotoUri(newUri);
-			})
-			.then(() => {
-				navigation.navigate('Result', {
-					photoUri,
+				setPhotoUri(() => {
+					navigation.navigate('Result', {
+						photoUri: newUri,
+					});
+					return newUri;
 				});
 			})
 			.catch((err) => {
