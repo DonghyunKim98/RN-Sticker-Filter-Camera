@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {filterCameraOptions} from '../../static/imagePickerOption';
 import {LaunchCamera, LaunchGallery} from '../../utils/imagePicker';
@@ -20,15 +20,11 @@ const styles = StyleSheet.create({
 });
 
 function FilterCameraSelctionScreen({navigation}) {
-	const [photoUri, setPhotoUri] = useState<string>('');
 	const CameraBtnClickListener = () : void => {
 		LaunchCamera(filterCameraOptions)
-			.then((newUri) => {
-				setPhotoUri(() => {
-					navigation.navigate('Result', {
-						photoUri: newUri,
-					});
-					return newUri;
+			.then((photoUri) => {
+				navigation.navigate('Result', {
+					photoUri,
 				});
 			})
 			.catch((err) => {
@@ -38,12 +34,9 @@ function FilterCameraSelctionScreen({navigation}) {
 
 	const GalleryBtnClickListener = () : void => {
 		LaunchGallery(filterCameraOptions)
-			.then((newUri) => {
-				setPhotoUri(() => {
-					navigation.navigate('Result', {
-						photoUri: newUri,
-					});
-					return newUri;
+			.then((photoUri) => {
+				navigation.navigate('Result', {
+					photoUri,
 				});
 			})
 			.catch((err) => {
