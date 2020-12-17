@@ -19,7 +19,7 @@ const App = () => {
 				<Stack.Screen
 					name="FilterCamera"
 					component={FilterCamera}
-					options={{title: 'Filter Camera'}}
+					options={{headerShown: false}}
 				/>
 				<Stack.Screen
 					name="StickerCamera"

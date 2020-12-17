@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
 const Home = ({navigation}) => {
 	const navigateToFilterScreen = () => {
-		navigation.navigate('FilterCamera');
+		navigation.navigate('FilterCamera', {screen: 'FilterCameraSelectionScreen'});
 	};
 
 	const navigateToStickerScreen = () => {
