@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	bnt: {
+	btn: {
 		padding: 10,
 	},
 });

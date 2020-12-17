@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Image, View, Text} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import FilterBtn from './FilterBtn';
 
 const styles = StyleSheet.create({
@@ -16,11 +17,11 @@ const styles = StyleSheet.create({
 	},
 	footer: {
 		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
 	},
 	filterBtn: {
-
+		width: 'same-as-height',
+		height: '50%',
+		margin: 10,
 	},
 });
 
@@ -43,7 +44,10 @@ function FilterCameraResultScreen({route}) {
 					<Text>사진이 없어요!!</Text>
 				)}
 			</View>
-			<View style={styles.footer}>
+			<ScrollView
+				style={styles.footer}
+				horizontal={true}
+			>
 				<FilterBtn
 					title={'필터 버튼 1번'}
 					style={styles.filterBtn}
@@ -59,7 +63,7 @@ function FilterCameraResultScreen({route}) {
 					style={styles.filterBtn}
 					onPressFunc={FilterBtnClickListener}
 				/>
-			</View>
+			</ScrollView>
 		</View>
 	);
 }
