@@ -6,6 +6,8 @@ interface ButtonProps {
     style: object,
     onPressFunc: Function,
 }
+
+
 function FilterBtn({title, style, onPressFunc}: ButtonProps) {
 	return (
 		<View style={style}>

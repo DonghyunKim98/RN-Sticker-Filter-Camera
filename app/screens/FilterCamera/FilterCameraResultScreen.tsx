@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	filterBtn: {
-		width: 'same-as-height',
-		height: '50%',
+		width: 80,
+		height: '70%',
 		margin: 10,
 	},
 });

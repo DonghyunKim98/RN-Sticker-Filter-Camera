@@ -23,6 +23,7 @@ function FilterCameraSelctionScreen({navigation}) {
 	const CameraBtnClickListener = () : void => {
 		LaunchCamera(filterCameraOptions)
 			.then((photoUri) => {
+				console.log(photoUri);
 				navigation.navigate('Result', {
 					photoUri,
 				});
