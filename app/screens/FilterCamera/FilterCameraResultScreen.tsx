@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Image, View, Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import FilterBtn from './FilterBtn';
+import FilterBtns from './FilterBtns';
 
 const styles = StyleSheet.create({
 	container: {
@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
 		margin: 10,
 	},
 });
+
+const titles = ["필터 버튼 1번", "필터 버튼 2번", "필터 버튼 3번"];
 
 function FilterCameraResultScreen({route}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
@@ -48,18 +50,8 @@ function FilterCameraResultScreen({route}) {
 				style={styles.footer}
 				horizontal={true}
 			>
-				<FilterBtn
-					title={'필터 버튼 1번'}
-					style={styles.filterBtn}
-					onPressFunc={FilterBtnClickListener}
-				/>
-				<FilterBtn
-					title={'필터 버튼 2번'}
-					style={styles.filterBtn}
-					onPressFunc={FilterBtnClickListener}
-				/>
-				<FilterBtn
-					title={'필터 버튼 3번'}
+				<FilterBtns
+					titles={titles}
 					style={styles.filterBtn}
 					onPressFunc={FilterBtnClickListener}
 				/>
