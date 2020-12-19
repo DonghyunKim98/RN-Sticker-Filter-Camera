@@ -9,8 +9,8 @@ interface ButtonProps {
 
 
 function FilterBtns({titles, style, onPressFunc}: ButtonProps) {
-	const FilterBtnComponents = titles.map((title, idx) =>
-		<View style={style} key={idx}>
+	const FilterBtnComponents = titles.map((title) =>
+		<View style={style} key={title}>
 			<Button
 				title={title}
 				onPress={() => onPressFunc()}

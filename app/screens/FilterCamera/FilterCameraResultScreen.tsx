@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
+import {StyleSheet, Image, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import FilterBtns from './FilterBtns';
 
@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
 	img: {
 		width: '100%',
 		height: '100%',
+		zIndex: 1,
+	},
+	filter: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		zIndex: 2,
+		backgroundColor: '#000000',
+		opacity: 0.7,
 	},
 	footer: {
 		flex: 1,
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-const titles = ["필터 버튼 1번", "필터 버튼 2번", "필터 버튼 3번"];
+const titles = ["흑백", "필터 버튼 2번", "필터 버튼 3번", "필터 버튼 4번", "필터 버튼 5번", "필터 버튼 6번", "필터 버튼 7번"];
 
 function FilterCameraResultScreen({route}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
@@ -36,15 +45,13 @@ function FilterCameraResultScreen({route}) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				{photoUri !== '' ? (
-					<Image
-						style={styles.img}
-						source={{
-							uri: `${photoUri}`,
-						}}
-					/>) : (
-					<Text>사진이 없어요!!</Text>
-				)}
+				<Image
+					style={styles.img}
+					source={{
+						uri: `${photoUri}`,
+					}}
+				/>
+				<View style={styles.filter}/>
 			</View>
 			<ScrollView
 				style={styles.footer}
