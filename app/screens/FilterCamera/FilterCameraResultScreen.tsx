@@ -21,16 +21,15 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 		zIndex: 2,
-		backgroundColor: '#000000',
-		opacity: 0.7,
 	},
 	footer: {
 		flex: 1,
 	},
 	filterBtn: {
+		backgroundColor: "#DDDDDD",
 		width: 80,
 		height: '70%',
-		margin: 10,
+		padding: 10,
 	},
 });
 
