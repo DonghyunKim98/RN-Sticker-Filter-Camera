@@ -4,7 +4,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import FilterBtns from './FilterBtns';
 import {titles} from '../../static/FilterCamera/FilterBtnValue';
-import {filterStyleValue} from '../../static/FilterCamera/FilterValue';
 
 const styles = StyleSheet.create({
 	container: {
@@ -17,13 +16,6 @@ const styles = StyleSheet.create({
 	img: {
 		width: '100%',
 		height: '100%',
-		zIndex: 1,
-	},
-	filter: {
-		position: 'absolute',
-		width: '100%',
-		height: '100%',
-		zIndex: 2,
 	},
 	footer: {
 		flex: 1,
@@ -36,24 +28,37 @@ const styles = StyleSheet.create({
 	},
 });
 
+const GrayscaledImage = (imgSrc) => (
+	<Grayscale>
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Grayscale>
+);
+
 function FilterCameraResultScreen({route}) {
-	const [filterValue, setFilterValue] = useState(filterStyleValue.default);
 	const {photoUri = ''}: { photoUri: string } = route.params;
+	const [img, setImg] = useState(
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${photoUri}`,
+			}}
+		/>,
+	);
 	const FilterBtnClickListener = () : void => {
-		setFilterValue(filterStyleValue.BlackAndWhite);
+		const newPhoto = GrayscaledImage(photoUri);
+
+		setImg(newPhoto);
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				<Grayscale>
-					<Image
-						style={styles.img}
-						source={{
-							uri: `${photoUri}`,
-						}}
-					/>
-				</Grayscale>
+				{img}
 			</View>
 			<ScrollView
 				style={styles.footer}
