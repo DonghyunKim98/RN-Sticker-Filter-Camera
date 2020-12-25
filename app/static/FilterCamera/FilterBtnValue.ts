@@ -1,1 +1,1 @@
-export const titles = ["흑백", "필터 버튼 2번", "필터 버튼 3번", "필터 버튼 4번", "필터 버튼 5번", "필터 버튼 6번", "필터 버튼 7번"];
+export const titles = ["흑백", "Tint", "Warm", "Cool", "Polaroid", "Sepia"];

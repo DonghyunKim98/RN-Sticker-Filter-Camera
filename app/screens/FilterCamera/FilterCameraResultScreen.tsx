@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Image, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Grayscale} from 'react-native-color-matrix-image-filters';
+import {Cool, Grayscale, Polaroid, Sepia, Tint, Warm} from 'react-native-color-matrix-image-filters';
 import FilterBtns from './FilterBtns';
 import {titles} from '../../static/FilterCamera/FilterBtnValue';
 
@@ -39,6 +39,61 @@ const GrayscaledImage = (imgSrc) => (
 	</Grayscale>
 );
 
+const TintedFilterImage = (imgSrc) => (
+	<Tint amount={0.5}>
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Tint>
+);
+
+const WarmFilterImage = (imgSrc) => (
+	<Warm>
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Warm>
+);
+
+const CoolFilterImgae = (imgSrc) => (
+	<Cool>
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Cool>
+);
+
+const PolaroidFilterImage = (imgSrc) =>(
+	<Polaroid>
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Polaroid>
+);
+
+const SepiaFilterImage = (imgSrc) =>(
+	<Sepia>
+		<Image
+			style={styles.img}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Sepia>
+);
+
 function FilterCameraResultScreen({route}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
 	const [img, setImg] = useState(
@@ -49,9 +104,36 @@ function FilterCameraResultScreen({route}) {
 			}}
 		/>,
 	);
-	const FilterBtnClickListener = () : void => {
-		const newPhoto = GrayscaledImage(photoUri);
+	const FilterBtnClickListener = (title: string) : void => {
+		let newPhoto;
 
+		switch (title) {
+			case "흑백":
+				newPhoto = GrayscaledImage(photoUri);
+				break;
+			case "Tint":
+				newPhoto = TintedFilterImage(photoUri);
+				break;
+			case "Warm":
+				newPhoto = WarmFilterImage(photoUri);
+				break;
+			case "Cool":
+				newPhoto = CoolFilterImgae(photoUri);
+				break;
+			case "Polaroid":
+				newPhoto = PolaroidFilterImage(photoUri);
+				break;
+			case "Sepia":
+				newPhoto = SepiaFilterImage(photoUri);
+				break;
+			default:
+				newPhoto = (
+					<View style={styles.content}>
+						{img}
+					</View>
+				);
+				break;
+		}
 		setImg(newPhoto);
 	};
 

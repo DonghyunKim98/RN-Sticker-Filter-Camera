@@ -12,7 +12,7 @@ function FilterBtns({titles, style, onPressFunc}: ButtonProps) {
 	const FilterBtnComponents = titles.map((title) => (
 		<TouchableOpacity
 			key={title}
-			onPress={onPressFunc}
+			onPress={() => { onPressFunc(title); }}
 			style={style}
 		>
 			<Text>{title}</Text>
