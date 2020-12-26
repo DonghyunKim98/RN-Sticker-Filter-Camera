@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
-import FilterBtn from './FilterBtn';
+import {StyleSheet, Image, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import FilterBtns from './FilterBtns';
 
 const styles = StyleSheet.create({
 	container: {
@@ -13,16 +14,27 @@ const styles = StyleSheet.create({
 	img: {
 		width: '100%',
 		height: '100%',
+		zIndex: 1,
+	},
+	filter: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		zIndex: 2,
+		backgroundColor: '#000000',
+		opacity: 0.7,
 	},
 	footer: {
 		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
 	},
 	filterBtn: {
-
+		width: 80,
+		height: '70%',
+		margin: 10,
 	},
 });
+
+const titles = ["흑백", "필터 버튼 2번", "필터 버튼 3번", "필터 버튼 4번", "필터 버튼 5번", "필터 버튼 6번", "필터 버튼 7번"];
 
 function FilterCameraResultScreen({route}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
@@ -33,33 +45,24 @@ function FilterCameraResultScreen({route}) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				{photoUri !== '' ? (
-					<Image
-						style={styles.img}
-						source={{
-							uri: `${photoUri}`,
-						}}
-					/>) : (
-					<Text>사진이 없어요!!</Text>
-				)}
+				<Image
+					style={styles.img}
+					source={{
+						uri: `${photoUri}`,
+					}}
+				/>
+				<View style={styles.filter}/>
 			</View>
-			<View style={styles.footer}>
-				<FilterBtn
-					title={'필터 버튼 1번'}
+			<ScrollView
+				style={styles.footer}
+				horizontal={true}
+			>
+				<FilterBtns
+					titles={titles}
 					style={styles.filterBtn}
 					onPressFunc={FilterBtnClickListener}
 				/>
-				<FilterBtn
-					title={'필터 버튼 2번'}
-					style={styles.filterBtn}
-					onPressFunc={FilterBtnClickListener}
-				/>
-				<FilterBtn
-					title={'필터 버튼 3번'}
-					style={styles.filterBtn}
-					onPressFunc={FilterBtnClickListener}
-				/>
-			</View>
+			</ScrollView>
 		</View>
 	);
 }
