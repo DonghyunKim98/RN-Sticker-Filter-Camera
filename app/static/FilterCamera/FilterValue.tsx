@@ -2,18 +2,21 @@ import React from 'react';
 import {Image} from 'react-native';
 import {Cool, Grayscale, Polaroid, Sepia, Tint, Warm} from 'react-native-color-matrix-image-filters';
 
-export const GrayscaledImage = (style, imgSrc) => (
-	<Grayscale>
-		<Image
-			style={style}
-			source={{
-				uri: `${imgSrc}`,
-			}}
-		/>
-	</Grayscale>
-);
+export const GrayscaledImage = (imgSrc, style) => {
+	console.log(imgSrc);
+	return (
+		<Grayscale>
+			<Image
+				style={style}
+				source={{
+					uri: `${imgSrc}`,
+				}}
+			/>
+		</Grayscale>
+	);
+};
 
-export const TintedFilterImage = (style, imgSrc) => (
+export const TintedFilterImage = (imgSrc, style) => (
 	<Tint amount={0.5}>
 		<Image
 			style={style}
@@ -24,7 +27,7 @@ export const TintedFilterImage = (style, imgSrc) => (
 	</Tint>
 );
 
-export const WarmFilterImage = (style, imgSrc) => (
+export const WarmFilterImage = (imgSrc, style) => (
 	<Warm>
 		<Image
 			style={style}
@@ -35,7 +38,7 @@ export const WarmFilterImage = (style, imgSrc) => (
 	</Warm>
 );
 
-export const CoolFilterImgae = (style, imgSrc) => (
+export const CoolFilterImgae = (imgSrc, style) => (
 	<Cool>
 		<Image
 			style={style}
@@ -46,7 +49,7 @@ export const CoolFilterImgae = (style, imgSrc) => (
 	</Cool>
 );
 
-export const PolaroidFilterImage = (style, imgSrc) => (
+export const PolaroidFilterImage = (imgSrc, style) => (
 	<Polaroid>
 		<Image
 			style={style}
@@ -57,7 +60,7 @@ export const PolaroidFilterImage = (style, imgSrc) => (
 	</Polaroid>
 );
 
-export const SepiaFilterImage = (style, imgSrc) => (
+export const SepiaFilterImage = (imgSrc, style) => (
 	<Sepia>
 		<Image
 			style={style}
