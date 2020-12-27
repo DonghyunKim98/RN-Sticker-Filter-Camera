@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	btn: {
+		backgroundColor: "#DDDDDD",
 		padding: 10,
 	},
 });
@@ -23,7 +24,6 @@ function FilterCameraSelctionScreen({navigation}) {
 	const CameraBtnClickListener = () : void => {
 		LaunchCamera(filterCameraOptions)
 			.then((photoUri) => {
-				console.log(photoUri);
 				navigation.navigate('Result', {
 					photoUri,
 				});

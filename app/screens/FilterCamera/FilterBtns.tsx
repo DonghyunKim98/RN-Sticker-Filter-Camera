@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
 interface ButtonProps {
     titles: Array<string>,
@@ -9,14 +9,15 @@ interface ButtonProps {
 
 
 function FilterBtns({titles, style, onPressFunc}: ButtonProps) {
-	const FilterBtnComponents = titles.map((title) =>
-		<View style={style} key={title}>
-			<Button
-				title={title}
-				onPress={() => onPressFunc()}
-			/>
-		</View>,
-	);
+	const FilterBtnComponents = titles.map((title) => (
+		<TouchableOpacity
+			key={title}
+			onPress={() => { onPressFunc(title); }}
+			style={style}
+		>
+			<Text>{title}</Text>
+		</TouchableOpacity>
+	));
 
 	return (
 		<>
