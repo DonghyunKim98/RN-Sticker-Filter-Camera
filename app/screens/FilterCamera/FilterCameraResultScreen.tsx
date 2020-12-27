@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Image, View} from 'react-native';
+import {StyleSheet, Image, View, Button } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function FilterCameraResultScreen({route}) {
+function FilterCameraResultScreen({route, navigation}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
 	const [imgValue, setImgValue] = useState({
 		img: <Image
@@ -40,6 +40,21 @@ function FilterCameraResultScreen({route}) {
 		filter: 'default',
 		amount: 0,
 	});
+
+	React.useLayoutEffect(() => {
+		navigation.setOptions({
+			headerRight: () => (
+				<Button
+					title="저장"
+					onPress={submitBtnClickListener}
+				/>
+			),
+		});
+	}, [navigation]);
+
+	const submitBtnClickListener = () => {
+		console.log(imgValue);
+	};
 	const FilterBtnClickListener = (title: string) : void => {
 		const newPhotoValue = imgValue;
 

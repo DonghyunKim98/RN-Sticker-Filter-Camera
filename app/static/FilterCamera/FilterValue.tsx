@@ -2,18 +2,16 @@ import React from 'react';
 import {Image} from 'react-native';
 import {Cool, Grayscale, Polaroid, Sepia, Tint, Warm} from 'react-native-color-matrix-image-filters';
 
-export const GrayscaledImage = (imgSrc, style) => {
-	return (
-		<Grayscale>
-			<Image
-				style={style}
-				source={{
-					uri: `${imgSrc}`,
-				}}
-			/>
-		</Grayscale>
-	);
-};
+export const GrayscaledImage = (imgSrc, style) => (
+	<Grayscale>
+		<Image
+			style={style}
+			source={{
+				uri: `${imgSrc}`,
+			}}
+		/>
+	</Grayscale>
+);
 
 export const TintedFilterImage = (imgSrc, style) => (
 	<Tint amount={0.5}>
