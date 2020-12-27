@@ -30,51 +30,56 @@ const styles = StyleSheet.create({
 
 function FilterCameraResultScreen({route}) {
 	const {photoUri = ''}: { photoUri: string } = route.params;
-	const [img, setImg] = useState(
-		<Image
+	const [imgValue, setImgValue] = useState({
+		img: <Image
 			style={styles.img}
 			source={{
 				uri: `${photoUri}`,
 			}}
 		/>,
-	);
+		filter: 'default',
+		amount: 0,
+	});
 	const FilterBtnClickListener = (title: string) : void => {
-		let newPhoto;
+		const newPhotoValue = imgValue;
 
+		newPhotoValue.filter = `${title}`;
 		switch (title) {
 			case "흑백":
-				newPhoto = GrayscaledImage(photoUri, styles.img);
+				newPhotoValue.img = GrayscaledImage(photoUri, styles.img);
 				break;
 			case "Tint":
-				newPhoto = TintedFilterImage(photoUri, styles.img);
+				newPhotoValue.img = TintedFilterImage(photoUri, styles.img);
+				newPhotoValue.amount = 0.5;
 				break;
 			case "Warm":
-				newPhoto = WarmFilterImage(photoUri, styles.img);
+				newPhotoValue.img = WarmFilterImage(photoUri, styles.img);
 				break;
 			case "Cool":
-				newPhoto = CoolFilterImgae(photoUri, styles.img);
+				newPhotoValue.img = CoolFilterImgae(photoUri, styles.img);
 				break;
 			case "Polaroid":
-				newPhoto = PolaroidFilterImage(photoUri, styles.img);
+				newPhotoValue.img = PolaroidFilterImage(photoUri, styles.img);
 				break;
 			case "Sepia":
-				newPhoto = SepiaFilterImage(photoUri, styles.img);
+				newPhotoValue.img = SepiaFilterImage(photoUri, styles.img);
 				break;
 			default:
-				newPhoto = (
+				newPhotoValue.img = (
 					<View style={styles.content}>
-						{img}
+						{imgValue.img}
 					</View>
 				);
+				newPhotoValue.filter = 'default';
 				break;
 		}
-		setImg(newPhoto);
+		setImgValue({...newPhotoValue});
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				{img}
+				{imgValue.img}
 			</View>
 			<ScrollView
 				style={styles.footer}

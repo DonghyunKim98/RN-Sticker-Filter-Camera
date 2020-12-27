@@ -3,7 +3,6 @@ import {Image} from 'react-native';
 import {Cool, Grayscale, Polaroid, Sepia, Tint, Warm} from 'react-native-color-matrix-image-filters';
 
 export const GrayscaledImage = (imgSrc, style) => {
-	console.log(imgSrc);
 	return (
 		<Grayscale>
 			<Image
