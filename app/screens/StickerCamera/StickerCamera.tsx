@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Image, View, Button, StyleSheet, Text} from 'react-native';
+import {
+	Image,
+	View,
+	Button,
+	StyleSheet,
+	Text,
+	ImageBackground,
+} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import Draggable from 'react-native-draggable';
 
@@ -10,21 +17,36 @@ const sampleSticker = require('../../assets/images/smile.png');
 
 // sample code from https://reactnative.dev/docs/permissionsandroid
 const styles = StyleSheet.create({
-	buttonStyle: {
-		padding: 10,
-		marginBottom: 5,
-	},
-	imageStyle: {
+	container: {
+		flex: 1,
 		width: '100%',
 		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	buttonStyle: {
+		width: '100%',
+		padding: 20,
 	},
 	sampleImageStyle: {
 		width: 30,
 		height: 30,
 	},
+	imageContainer: {
+		flex: 1,
+		backgroundColor: 'yellow',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: '100%',
+	},
+	imageStyle: {
+		height: '100%',
+		width: '100%',
+	},
 	stickerContainerStyle: {
-		zIndex: 0,
-		elevation: 3,
+		zIndex: 1,
+		backgroundColor: 'blue',
 	},
 });
 
@@ -59,40 +81,28 @@ const StickerCamera = () => {
 	};
 
 	return (
-		<View>
+		<View style={styles.container}>
+			{/* outermost container */}
+
 			<View style={styles.buttonStyle}>
 				<Button onPress={onOpenGalleryClick} title="gallery" />
-			</View>
-			<View style={styles.buttonStyle}>
 				<Button onPress={onOpenCameraClick} title="camera" />
 			</View>
-			{photoUri !== '' ? (
-				<Image
-					style={styles.imageStyle}
-					source={{
-						uri: `${photoUri}`,
-					}}
-				/>
-			) : (
-				<Text>이미지 없음</Text>
-			)}
-			<View style={styles.stickerContainerStyle}>
-				{/* <Draggable
-					x={75}
-					y={100}
-					renderSize={56}
-					renderColor="black"
-					renderText="A"
-					isCircle
-					shouldReverse
-					// eslint-disable-next-line no-alert
-					onShortPressRelease={() => alert('touched!!')}
-				/> */}
-				{/* <Draggable x={200} y={300} renderColor="red" renderText="B" /> */}
-				{/* <Draggable /> */}
-				<Draggable x={50} y={300}>
-					<Image style={styles.sampleImageStyle} source={sampleSticker} />
-				</Draggable>
+
+			<View style={styles.imageContainer}>
+				{photoUri !== '' ? (
+					<ImageBackground
+						style={styles.imageStyle}
+						source={{
+							uri: `${photoUri}`,
+						}}>
+						<Draggable x={150} y={300}>
+							<Image style={styles.sampleImageStyle} source={sampleSticker} />
+						</Draggable>
+					</ImageBackground>
+				) : (
+					<Text>이미지 없음</Text>
+				)}
 			</View>
 		</View>
 	);
