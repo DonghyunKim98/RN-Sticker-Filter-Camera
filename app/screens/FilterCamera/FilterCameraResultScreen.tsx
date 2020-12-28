@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {StyleSheet, Image, View, Button } from 'react-native';
+import {StyleSheet, Image, View, Button} from 'react-native';
+import Slider from '@react-native-community/slider';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
@@ -16,6 +17,13 @@ const styles = StyleSheet.create({
 	img: {
 		width: '100%',
 		height: '100%',
+	},
+	sliderBar: {
+		position: 'absolute',
+		zIndex: 2,
+		top: '70%',
+		width: '100%',
+		height: '10%',
 	},
 	footer: {
 		flex: 1,
@@ -40,6 +48,7 @@ function FilterCameraResultScreen({route, navigation}) {
 		filter: 'default',
 		amount: 0,
 	});
+	const [isTintFilter, setIsTintFilter] = useState(false);
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
@@ -59,6 +68,7 @@ function FilterCameraResultScreen({route, navigation}) {
 		const newPhotoValue = imgValue;
 
 		newPhotoValue.filter = `${title}`;
+		setIsTintFilter(false);
 		switch (title) {
 			case "흑백":
 				newPhotoValue.img = GrayscaledImage(photoUri, styles.img);
@@ -66,6 +76,7 @@ function FilterCameraResultScreen({route, navigation}) {
 			case "Tint":
 				newPhotoValue.img = TintedFilterImage(photoUri, styles.img);
 				newPhotoValue.amount = 0.5;
+				setIsTintFilter(true);
 				break;
 			case "Warm":
 				newPhotoValue.img = WarmFilterImage(photoUri, styles.img);
@@ -96,6 +107,18 @@ function FilterCameraResultScreen({route, navigation}) {
 			<View style={styles.content}>
 				{imgValue.img}
 			</View>
+			{
+				isTintFilter &&
+				<Slider
+					style={styles.sliderBar}
+					thumbTintColor= {'white'}
+					minimumTrackTintColor={'black'}
+					maximumTrackTintColor={'black'}
+					minimumValue={0}
+					maximumValue={2}
+					value={0.75}
+				/>
+			}
 			<ScrollView
 				style={styles.footer}
 				horizontal={true}
