@@ -13,8 +13,8 @@ export const GrayscaledImage = (imgSrc, style) => (
 	</Grayscale>
 );
 
-export const TintedFilterImage = (imgSrc, style) => (
-	<Tint amount={0.5}>
+export const TintedFilterImage = (imgSrc, style, amount) => (
+	<Tint amount={amount}>
 		<Image
 			style={style}
 			source={{

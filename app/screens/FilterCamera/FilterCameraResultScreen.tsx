@@ -46,7 +46,7 @@ function FilterCameraResultScreen({route, navigation}) {
 			}}
 		/>,
 		filter: 'default',
-		amount: 0,
+		amount: 0.5,
 	});
 	const [isTintFilter, setIsTintFilter] = useState(false);
 
@@ -65,41 +65,40 @@ function FilterCameraResultScreen({route, navigation}) {
 		console.log(imgValue);
 	};
 	const FilterBtnClickListener = (title: string) : void => {
-		const newPhotoValue = imgValue;
+		const newImgValue = imgValue;
 
-		newPhotoValue.filter = `${title}`;
+		newImgValue.filter = `${title}`;
 		setIsTintFilter(false);
 		switch (title) {
 			case "흑백":
-				newPhotoValue.img = GrayscaledImage(photoUri, styles.img);
+				newImgValue.img = GrayscaledImage(photoUri, styles.img);
 				break;
 			case "Tint":
-				newPhotoValue.img = TintedFilterImage(photoUri, styles.img);
-				newPhotoValue.amount = 0.5;
+				newImgValue.img = TintedFilterImage(photoUri, styles.img, imgValue.amount);
 				setIsTintFilter(true);
 				break;
 			case "Warm":
-				newPhotoValue.img = WarmFilterImage(photoUri, styles.img);
+				newImgValue.img = WarmFilterImage(photoUri, styles.img);
 				break;
 			case "Cool":
-				newPhotoValue.img = CoolFilterImgae(photoUri, styles.img);
+				newImgValue.img = CoolFilterImgae(photoUri, styles.img);
 				break;
 			case "Polaroid":
-				newPhotoValue.img = PolaroidFilterImage(photoUri, styles.img);
+				newImgValue.img = PolaroidFilterImage(photoUri, styles.img);
 				break;
 			case "Sepia":
-				newPhotoValue.img = SepiaFilterImage(photoUri, styles.img);
+				newImgValue.img = SepiaFilterImage(photoUri, styles.img);
 				break;
 			default:
-				newPhotoValue.img = (
+				newImgValue.img = (
 					<View style={styles.content}>
 						{imgValue.img}
 					</View>
 				);
-				newPhotoValue.filter = 'default';
+				newImgValue.filter = 'default';
 				break;
 		}
-		setImgValue({...newPhotoValue});
+		setImgValue({...newImgValue});
 	};
 
 	return (
@@ -116,7 +115,13 @@ function FilterCameraResultScreen({route, navigation}) {
 					maximumTrackTintColor={'black'}
 					minimumValue={0}
 					maximumValue={2}
-					value={0.75}
+					value={imgValue.amount}
+					onValueChange={value=>{
+						const newImgValue = imgValue;
+						newImgValue.img=TintedFilterImage(imgValue.img,styles.img,value);
+						newImgValue.amount=value;
+						setImgValue({...newImgValue});
+					}}
 				/>
 			}
 			<ScrollView
