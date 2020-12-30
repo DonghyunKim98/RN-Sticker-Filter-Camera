@@ -51,6 +51,10 @@ function FilterCameraResultScreen({route, navigation}) {
 	const [isTintFilter, setIsTintFilter] = useState(false);
 
 	React.useLayoutEffect(() => {
+		const submitBtnClickListener = () => {
+			console.log(imgValue);
+		};
+
 		navigation.setOptions({
 			headerRight: () => (
 				<Button
@@ -59,11 +63,8 @@ function FilterCameraResultScreen({route, navigation}) {
 				/>
 			),
 		});
-	}, [navigation]);
+	}, [navigation, imgValue]);
 
-	const submitBtnClickListener = () => {
-		console.log(imgValue);
-	};
 	const FilterBtnClickListener = (title: string) : void => {
 		const newImgValue = imgValue;
 
@@ -116,10 +117,11 @@ function FilterCameraResultScreen({route, navigation}) {
 					minimumValue={0}
 					maximumValue={2}
 					value={imgValue.amount}
-					onValueChange={value=>{
+					onValueChange={(value) => {
 						const newImgValue = imgValue;
-						newImgValue.img=TintedFilterImage(imgValue.img,styles.img,value);
-						newImgValue.amount=value;
+
+						newImgValue.img = TintedFilterImage(imgValue.img, styles.img, value);
+						newImgValue.amount = value;
 						setImgValue({...newImgValue});
 					}}
 				/>
