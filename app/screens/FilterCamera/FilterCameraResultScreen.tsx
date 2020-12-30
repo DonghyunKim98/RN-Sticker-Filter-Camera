@@ -37,18 +37,17 @@ const styles = StyleSheet.create({
 });
 
 function FilterCameraResultScreen({route, navigation}) {
-	const {photoUri = ''}: { photoUri: string } = route.params;
+	const {imgUri = ''}: { imgUri: string } = route.params;
 	const [imgValue, setImgValue] = useState({
 		img: <Image
 			style={styles.img}
 			source={{
-				uri: `${photoUri}`,
+				uri: `${imgUri}`,
 			}}
 		/>,
 		filter: 'default',
+		amount: 0.5,
 	});
-	const [isTintFilter, setIsTintFilter] = useState(false);
-	const [tintAmount, setTintAmount] = useState(0.5);
 
 	React.useLayoutEffect(() => {
 		const submitBtnClickListener = () => {
@@ -66,30 +65,29 @@ function FilterCameraResultScreen({route, navigation}) {
 	}, [navigation, imgValue]);
 
 
-	const FilterBtnClickListener = (title: string, amount?: Number) : void => {
-		const newImgValue = imgValue;
+	const FilterBtnClickListener = (title: string, amount?: number) : void => {
+		const newImgValue = {...imgValue};
 
 		newImgValue.filter = `${title}`;
-		setIsTintFilter(false);
 		switch (title) {
 			case "흑백":
-				newImgValue.img = GrayscaledImage(photoUri, styles.img);
+				newImgValue.img = GrayscaledImage(imgUri, styles.img);
 				break;
 			case "Tint":
-				newImgValue.img = TintedFilterImage(photoUri, styles.img, amount);
-				setIsTintFilter(true);
+				newImgValue.img = TintedFilterImage(imgUri, styles.img, amount);
+				newImgValue.amount = amount;
 				break;
 			case "Warm":
-				newImgValue.img = WarmFilterImage(photoUri, styles.img);
+				newImgValue.img = WarmFilterImage(imgUri, styles.img);
 				break;
 			case "Cool":
-				newImgValue.img = CoolFilterImgae(photoUri, styles.img);
+				newImgValue.img = CoolFilterImgae(imgUri, styles.img);
 				break;
 			case "Polaroid":
-				newImgValue.img = PolaroidFilterImage(photoUri, styles.img);
+				newImgValue.img = PolaroidFilterImage(imgUri, styles.img);
 				break;
 			case "Sepia":
-				newImgValue.img = SepiaFilterImage(photoUri, styles.img);
+				newImgValue.img = SepiaFilterImage(imgUri, styles.img);
 				break;
 			default:
 				newImgValue.img = (
@@ -109,7 +107,7 @@ function FilterCameraResultScreen({route, navigation}) {
 				{imgValue.img}
 			</View>
 			{
-				isTintFilter &&
+				imgValue.filter === "Tint" &&
 				<Slider
 					style={styles.sliderBar}
 					thumbTintColor= {'white'}
@@ -117,12 +115,9 @@ function FilterCameraResultScreen({route, navigation}) {
 					maximumTrackTintColor={'black'}
 					minimumValue={0}
 					maximumValue={2}
-					value={tintAmount}
+					value={imgValue.amount}
 					onSlidingComplete={(value) => {
-						setTintAmount(() => {
-							FilterBtnClickListener("Tint", value);
-							return value;
-						});
+						FilterBtnClickListener("Tint", value);
 					}}
 				/>
 			}
