@@ -46,9 +46,9 @@ function FilterCameraResultScreen({route, navigation}) {
 			}}
 		/>,
 		filter: 'default',
-		amount: 0.5,
 	});
 	const [isTintFilter, setIsTintFilter] = useState(false);
+	const [tintAmount, setTintAmount] = useState(0.5);
 
 	React.useLayoutEffect(() => {
 		const submitBtnClickListener = () => {
@@ -65,7 +65,8 @@ function FilterCameraResultScreen({route, navigation}) {
 		});
 	}, [navigation, imgValue]);
 
-	const FilterBtnClickListener = (title: string) : void => {
+
+	const FilterBtnClickListener = (title: string, amount?: Number) : void => {
 		const newImgValue = imgValue;
 
 		newImgValue.filter = `${title}`;
@@ -75,7 +76,7 @@ function FilterCameraResultScreen({route, navigation}) {
 				newImgValue.img = GrayscaledImage(photoUri, styles.img);
 				break;
 			case "Tint":
-				newImgValue.img = TintedFilterImage(photoUri, styles.img, imgValue.amount);
+				newImgValue.img = TintedFilterImage(photoUri, styles.img, amount);
 				setIsTintFilter(true);
 				break;
 			case "Warm":
@@ -116,13 +117,12 @@ function FilterCameraResultScreen({route, navigation}) {
 					maximumTrackTintColor={'black'}
 					minimumValue={0}
 					maximumValue={2}
-					value={imgValue.amount}
-					onValueChange={(value) => {
-						const newImgValue = imgValue;
-
-						newImgValue.img = TintedFilterImage(imgValue.img, styles.img, value);
-						newImgValue.amount = value;
-						setImgValue({...newImgValue});
+					value={tintAmount}
+					onSlidingComplete={(value) => {
+						setTintAmount(() => {
+							FilterBtnClickListener("Tint", value);
+							return value;
+						});
 					}}
 				/>
 			}
