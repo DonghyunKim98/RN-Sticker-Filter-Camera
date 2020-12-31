@@ -4,7 +4,8 @@ import Slider from '@react-native-community/slider';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
-import {titles} from '../../static/FilterCamera/FilterBtnValue';
+import {filterTitles} from '../../static/FilterCamera/FilterBtnValue';
+import sliderProp from './../../static/FilterCamera/SliderValue';
 
 const styles = StyleSheet.create({
 	container: {
@@ -53,14 +54,15 @@ function FilterCameraResultScreen({route, navigation}) {
 		const submitBtnClickListener = () => {
 			console.log(imgValue);
 		};
+		const createHeaderBtn = () => (
+			<Button
+				title="저장"
+				onPress={submitBtnClickListener}
+			/>
+		);
 
 		navigation.setOptions({
-			headerRight: () => (
-				<Button
-					title="저장"
-					onPress={submitBtnClickListener}
-				/>
-			),
+			headerRight: () => createHeaderBtn(),
 		});
 	}, [navigation, imgValue]);
 
@@ -70,23 +72,23 @@ function FilterCameraResultScreen({route, navigation}) {
 
 		newImgValue.filter = `${title}`;
 		switch (title) {
-			case "흑백":
+			case filterTitles.grayScale:
 				newImgValue.img = GrayscaledImage(imgUri, styles.img);
 				break;
-			case "Tint":
+			case filterTitles.tint:
 				newImgValue.img = TintedFilterImage(imgUri, styles.img, amount);
 				newImgValue.amount = amount;
 				break;
-			case "Warm":
+			case filterTitles.warm:
 				newImgValue.img = WarmFilterImage(imgUri, styles.img);
 				break;
-			case "Cool":
+			case filterTitles.cool:
 				newImgValue.img = CoolFilterImgae(imgUri, styles.img);
 				break;
-			case "Polaroid":
+			case filterTitles.polaroid:
 				newImgValue.img = PolaroidFilterImage(imgUri, styles.img);
 				break;
-			case "Sepia":
+			case filterTitles.sepia:
 				newImgValue.img = SepiaFilterImage(imgUri, styles.img);
 				break;
 			default:
@@ -110,11 +112,11 @@ function FilterCameraResultScreen({route, navigation}) {
 				imgValue.filter === "Tint" &&
 				<Slider
 					style={styles.sliderBar}
-					thumbTintColor= {'white'}
-					minimumTrackTintColor={'black'}
-					maximumTrackTintColor={'black'}
-					minimumValue={0}
-					maximumValue={2}
+					thumbTintColor= {sliderProp.thumbTintColor}
+					minimumTrackTintColor={sliderProp.minimumTrackTintColor}
+					maximumTrackTintColor={sliderProp.maximumTrackTintColor}
+					minimumValue={sliderProp.minimumValue}
+					maximumValue={sliderProp.maximumValue}
 					value={imgValue.amount}
 					onSlidingComplete={(value) => {
 						FilterBtnClickListener("Tint", value);
@@ -126,7 +128,7 @@ function FilterCameraResultScreen({route, navigation}) {
 				horizontal={true}
 			>
 				<FilterBtns
-					titles={titles}
+					titles={filterTitles}
 					style={styles.filterBtn}
 					onPressFunc={FilterBtnClickListener}
 				/>
