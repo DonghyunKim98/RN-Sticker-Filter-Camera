@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, Image, View} from 'react-native';
+import {StyleSheet, Image, View, Button} from 'react-native';
+import Slider from '@react-native-community/slider';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
-import {titles} from '../../static/FilterCamera/FilterBtnValue';
+import {filterTitles} from '../../static/FilterCamera/FilterBtnValue';
+import sliderProp from './../../static/FilterCamera/SliderValue';
 
 const styles = StyleSheet.create({
 	container: {
@@ -17,6 +19,13 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 	},
+	sliderBar: {
+		position: 'absolute',
+		zIndex: 2,
+		top: '70%',
+		width: '100%',
+		height: '10%',
+	},
 	footer: {
 		flex: 1,
 	},
@@ -28,60 +37,98 @@ const styles = StyleSheet.create({
 	},
 });
 
-function FilterCameraResultScreen({route}) {
-	const {photoUri = ''}: { photoUri: string } = route.params;
-	const [img, setImg] = useState(
-		<Image
+function FilterCameraResultScreen({route, navigation}) {
+	const {imgUri = ''}: { imgUri: string } = route.params;
+	const [imgValue, setImgValue] = useState({
+		img: <Image
 			style={styles.img}
 			source={{
-				uri: `${photoUri}`,
+				uri: `${imgUri}`,
 			}}
 		/>,
-	);
-	const FilterBtnClickListener = (title: string) : void => {
-		let newPhoto;
+		filter: 'default',
+		amount: 0.5,
+	});
 
+	React.useLayoutEffect(() => {
+		const submitBtnClickListener = () => {
+			console.log(imgValue);
+		};
+		const createHeaderBtn = () => (
+			<Button
+				title="저장"
+				onPress={submitBtnClickListener}
+			/>
+		);
+
+		navigation.setOptions({
+			headerRight: () => createHeaderBtn(),
+		});
+	}, [navigation, imgValue]);
+
+
+	const FilterBtnClickListener = (title: string, amount?: number) : void => {
+		const newImgValue = {...imgValue};
+
+		newImgValue.filter = `${title}`;
 		switch (title) {
-			case "흑백":
-				newPhoto = GrayscaledImage(photoUri, styles.img);
+			case filterTitles.grayScale:
+				newImgValue.img = GrayscaledImage(imgUri, styles.img);
 				break;
-			case "Tint":
-				newPhoto = TintedFilterImage(photoUri, styles.img);
+			case filterTitles.tint:
+				newImgValue.img = TintedFilterImage(imgUri, styles.img, amount);
+				newImgValue.amount = amount;
 				break;
-			case "Warm":
-				newPhoto = WarmFilterImage(photoUri, styles.img);
+			case filterTitles.warm:
+				newImgValue.img = WarmFilterImage(imgUri, styles.img);
 				break;
-			case "Cool":
-				newPhoto = CoolFilterImgae(photoUri, styles.img);
+			case filterTitles.cool:
+				newImgValue.img = CoolFilterImgae(imgUri, styles.img);
 				break;
-			case "Polaroid":
-				newPhoto = PolaroidFilterImage(photoUri, styles.img);
+			case filterTitles.polaroid:
+				newImgValue.img = PolaroidFilterImage(imgUri, styles.img);
 				break;
-			case "Sepia":
-				newPhoto = SepiaFilterImage(photoUri, styles.img);
+			case filterTitles.sepia:
+				newImgValue.img = SepiaFilterImage(imgUri, styles.img);
 				break;
 			default:
-				newPhoto = (
+				newImgValue.img = (
 					<View style={styles.content}>
-						{img}
+						{imgValue.img}
 					</View>
 				);
+				newImgValue.filter = 'default';
 				break;
 		}
-		setImg(newPhoto);
+		setImgValue({...newImgValue});
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				{img}
+				{imgValue.img}
 			</View>
+			{
+				imgValue.filter === "Tint" &&
+				<Slider
+					style={styles.sliderBar}
+					thumbTintColor= {sliderProp.thumbTintColor}
+					minimumTrackTintColor={sliderProp.minimumTrackTintColor}
+					maximumTrackTintColor={sliderProp.maximumTrackTintColor}
+					minimumValue={sliderProp.minimumValue}
+					maximumValue={sliderProp.maximumValue}
+					value={imgValue.amount}
+					onSlidingComplete={(value) => {
+						FilterBtnClickListener("Tint", value);
+					}}
+				/>
+			}
 			<ScrollView
 				style={styles.footer}
 				horizontal={true}
 			>
 				<FilterBtns
-					titles={titles}
+					titles={filterTitles}
 					style={styles.filterBtn}
 					onPressFunc={FilterBtnClickListener}
 				/>
