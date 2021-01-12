@@ -17,7 +17,21 @@ function FilterCamera() {
 				name="Result"
 				component={FilterCameraResultScreen}
 				options={{
-					headerTitle: '필터 적용하기',
+					headerTitle: 'Choose your filter',
+					headerStyle: {
+						backgroundColor: "#4c4c4c",
+						height: 59,
+					},
+					headerTintColor: '#fff',
+					headerTitleStyle: {
+						fontWeight: 'bold',
+						fontFamily: 'Nanum Brush Script',
+						fontSize: 24,
+						fontStyle: "normal",
+						lineHeight: 29,
+						letterSpacing: 0,
+						color: "#ffffff",
+					},
 				}}
 			/>
 		</Stack.Navigator>

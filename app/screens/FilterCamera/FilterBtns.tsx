@@ -3,12 +3,13 @@ import {Text, TouchableOpacity} from 'react-native';
 
 interface ButtonProps {
     titles: object,
-    style: object,
+	btnStyle: object,
+	textStyle: object,
     onPressFunc: Function,
 }
 
 
-function FilterBtns({titles, style, onPressFunc}: ButtonProps) {
+function FilterBtns({titles, btnStyle, textStyle, onPressFunc}: ButtonProps) {
 	const FilterBtnComponents = [];
 
 	for (const title in titles) {
@@ -16,9 +17,9 @@ function FilterBtns({titles, style, onPressFunc}: ButtonProps) {
 			<TouchableOpacity
 				key={title}
 				onPress={() => { titles[title] === "Tint" ? onPressFunc(titles[title], 0.5) : onPressFunc(titles[title]); }}
-				style={style}
+				style={btnStyle}
 			>
-				<Text>{titles[title]}</Text>
+				<Text style={textStyle}>{titles[title]}</Text>
 			</TouchableOpacity>,
 		);
 	}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, Image, View, Button} from 'react-native';
+import {StyleSheet, Image, View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
 import {filterTitles} from '../../static/FilterCamera/FilterBtnValue';
@@ -22,22 +22,49 @@ const styles = StyleSheet.create({
 	sliderBar: {
 		position: 'absolute',
 		zIndex: 2,
-		top: '70%',
+		top: '55%',
 		width: '100%',
 		height: '10%',
 	},
 	footer: {
 		flex: 1,
+		marginTop: 20,
+		marginBottom: 20,
 	},
 	filterBtn: {
-		backgroundColor: "#DDDDDD",
-		width: 80,
-		height: '70%',
-		padding: 10,
+		width: 104,
+		height: '100%',
+		marginRight: 10,
+		backgroundColor: "#ffffff",
+		borderStyle: "solid",
+		borderWidth: 1,
+		borderColor: "#707070",
+	},
+	filterBtnText: {
+		fontSize: 25,
+		fontFamily: "Nanum Pen Script",
+		fontStyle: "normal",
+		color: "#707070",
+		textAlign: "center",
+		marginTop: 20,
+	},
+	submitBtn: {
+		width: '100%',
+		height: 59,
+		backgroundColor: "#e8c0c0",
+	},
+	submitBtnText: {
+		width: '100%',
+		height: 38,
+		fontSize: 31,
+		fontWeight: 'bold',
+		letterSpacing: 0,
+		textAlign: 'center',
+		color: "#707070",
 	},
 });
 
-function FilterCameraResultScreen({route, navigation}) {
+function FilterCameraResultScreen({route}) {
 	const {imgUri = ''}: { imgUri: string } = route.params;
 	const [imgValue, setImgValue] = useState({
 		img: <Image
@@ -49,26 +76,12 @@ function FilterCameraResultScreen({route, navigation}) {
 		filter: 'default',
 		amount: 0.5,
 	});
+	const submitBtnClickListener = () => {
+		console.log(imgValue);
+	};
 
-	React.useLayoutEffect(() => {
-		const submitBtnClickListener = () => {
-			console.log(imgValue);
-		};
-		const createHeaderBtn = () => (
-			<Button
-				title="저장"
-				onPress={submitBtnClickListener}
-			/>
-		);
-
-		navigation.setOptions({
-			headerRight: () => createHeaderBtn(),
-		});
-	}, [navigation, imgValue]);
-
-
-	const FilterBtnClickListener = (title: string, amount?: number) : void => {
-		const newImgValue = {...imgValue};
+	const FilterBtnClickListener = (title: string, amount?: number): void => {
+		const newImgValue = { ...imgValue };
 
 		newImgValue.filter = `${title}`;
 		switch (title) {
@@ -112,7 +125,7 @@ function FilterCameraResultScreen({route, navigation}) {
 				imgValue.filter === "Tint" &&
 				<Slider
 					style={styles.sliderBar}
-					thumbTintColor= {sliderProp.thumbTintColor}
+					thumbTintColor={sliderProp.thumbTintColor}
 					minimumTrackTintColor={sliderProp.minimumTrackTintColor}
 					maximumTrackTintColor={sliderProp.maximumTrackTintColor}
 					minimumValue={sliderProp.minimumValue}
@@ -129,10 +142,17 @@ function FilterCameraResultScreen({route, navigation}) {
 			>
 				<FilterBtns
 					titles={filterTitles}
-					style={styles.filterBtn}
+					btnStyle={styles.filterBtn}
+					textStyle={styles.filterBtnText}
 					onPressFunc={FilterBtnClickListener}
 				/>
 			</ScrollView>
+			<TouchableOpacity
+				onPress={()=> submitBtnClickListener()}
+				style={styles.submitBtn}
+			>
+				<Text style={styles.submitBtnText}>Apply filter!</Text>
+			</TouchableOpacity>
 		</View>
 	);
 }
