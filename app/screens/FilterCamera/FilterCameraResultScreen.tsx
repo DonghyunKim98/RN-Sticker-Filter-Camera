@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, Image, View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -80,8 +80,8 @@ function FilterCameraResultScreen({route}) {
 		console.log(imgValue);
 	};
 
-	const FilterBtnClickListener = (title: string, amount?: number): void => {
-		const newImgValue = { ...imgValue };
+	const FilterBtnClickListener = useCallback((title: string, amount?: number): void => {
+		const newImgValue = {...imgValue};
 
 		newImgValue.filter = `${title}`;
 		switch (title) {
@@ -114,7 +114,7 @@ function FilterCameraResultScreen({route}) {
 				break;
 		}
 		setImgValue({...newImgValue});
-	};
+	}, [imgUri, imgValue]);
 
 	return (
 		<View style={styles.container}>
@@ -148,7 +148,7 @@ function FilterCameraResultScreen({route}) {
 				/>
 			</ScrollView>
 			<TouchableOpacity
-				onPress={()=> submitBtnClickListener()}
+				onPress={() => submitBtnClickListener()}
 				style={styles.submitBtn}
 			>
 				<Text style={styles.submitBtnText}>Apply filter!</Text>
