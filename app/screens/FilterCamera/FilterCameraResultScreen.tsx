@@ -1,7 +1,11 @@
-import React from 'react';
-import {StyleSheet, Image, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Image, View, Button} from 'react-native';
+import Slider from '@react-native-community/slider';
 import {ScrollView} from 'react-native-gesture-handler';
+import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
+import {filterTitles} from '../../static/FilterCamera/FilterBtnValue';
+import sliderProp from './../../static/FilterCamera/SliderValue';
 
 const styles = StyleSheet.create({
 	container: {
@@ -14,51 +18,117 @@ const styles = StyleSheet.create({
 	img: {
 		width: '100%',
 		height: '100%',
-		zIndex: 1,
 	},
-	filter: {
+	sliderBar: {
 		position: 'absolute',
-		width: '100%',
-		height: '100%',
 		zIndex: 2,
-		backgroundColor: '#000000',
-		opacity: 0.7,
+		top: '70%',
+		width: '100%',
+		height: '10%',
 	},
 	footer: {
 		flex: 1,
 	},
 	filterBtn: {
+		backgroundColor: "#DDDDDD",
 		width: 80,
 		height: '70%',
-		margin: 10,
+		padding: 10,
 	},
 });
 
-const titles = ["흑백", "필터 버튼 2번", "필터 버튼 3번", "필터 버튼 4번", "필터 버튼 5번", "필터 버튼 6번", "필터 버튼 7번"];
+function FilterCameraResultScreen({route, navigation}) {
+	const {imgUri = ''}: { imgUri: string } = route.params;
+	const [imgValue, setImgValue] = useState({
+		img: <Image
+			style={styles.img}
+			source={{
+				uri: `${imgUri}`,
+			}}
+		/>,
+		filter: 'default',
+		amount: 0.5,
+	});
 
-function FilterCameraResultScreen({route}) {
-	const {photoUri = ''}: { photoUri: string } = route.params;
-	const FilterBtnClickListener = () : void => {
-		console.log("필터 버튼!");
+	React.useLayoutEffect(() => {
+		const submitBtnClickListener = () => {
+			console.log(imgValue);
+		};
+		const createHeaderBtn = () => (
+			<Button
+				title="저장"
+				onPress={submitBtnClickListener}
+			/>
+		);
+
+		navigation.setOptions({
+			headerRight: () => createHeaderBtn(),
+		});
+	}, [navigation, imgValue]);
+
+
+	const FilterBtnClickListener = (title: string, amount?: number) : void => {
+		const newImgValue = {...imgValue};
+
+		newImgValue.filter = `${title}`;
+		switch (title) {
+			case filterTitles.grayScale:
+				newImgValue.img = GrayscaledImage(imgUri, styles.img);
+				break;
+			case filterTitles.tint:
+				newImgValue.img = TintedFilterImage(imgUri, styles.img, amount);
+				newImgValue.amount = amount;
+				break;
+			case filterTitles.warm:
+				newImgValue.img = WarmFilterImage(imgUri, styles.img);
+				break;
+			case filterTitles.cool:
+				newImgValue.img = CoolFilterImgae(imgUri, styles.img);
+				break;
+			case filterTitles.polaroid:
+				newImgValue.img = PolaroidFilterImage(imgUri, styles.img);
+				break;
+			case filterTitles.sepia:
+				newImgValue.img = SepiaFilterImage(imgUri, styles.img);
+				break;
+			default:
+				newImgValue.img = (
+					<View style={styles.content}>
+						{imgValue.img}
+					</View>
+				);
+				newImgValue.filter = 'default';
+				break;
+		}
+		setImgValue({...newImgValue});
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.content}>
-				<Image
-					style={styles.img}
-					source={{
-						uri: `${photoUri}`,
+				{imgValue.img}
+			</View>
+			{
+				imgValue.filter === "Tint" &&
+				<Slider
+					style={styles.sliderBar}
+					thumbTintColor= {sliderProp.thumbTintColor}
+					minimumTrackTintColor={sliderProp.minimumTrackTintColor}
+					maximumTrackTintColor={sliderProp.maximumTrackTintColor}
+					minimumValue={sliderProp.minimumValue}
+					maximumValue={sliderProp.maximumValue}
+					value={imgValue.amount}
+					onSlidingComplete={(value) => {
+						FilterBtnClickListener("Tint", value);
 					}}
 				/>
-				<View style={styles.filter}/>
-			</View>
+			}
 			<ScrollView
 				style={styles.footer}
 				horizontal={true}
 			>
 				<FilterBtns
-					titles={titles}
+					titles={filterTitles}
 					style={styles.filterBtn}
 					onPressFunc={FilterBtnClickListener}
 				/>

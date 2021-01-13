@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
 interface ButtonProps {
 	title: string,
@@ -9,12 +9,12 @@ interface ButtonProps {
 
 function SelectionBtn({title, style, onPressFunc}: ButtonProps) {
 	return (
-		<View style={style}>
-			<Button
-				title={title}
-				onPress={() => onPressFunc()}
-			/>
-		</View>
+		<TouchableOpacity
+			onPress={onPressFunc}
+			style={style}
+		>
+			<Text>{title}</Text>
+		</TouchableOpacity>
 	);
 }
 
