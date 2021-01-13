@@ -2,16 +2,14 @@ import React, {useState} from 'react';
 import {
 	Image,
 	View,
-	Button,
 	StyleSheet,
 	Text,
 	ImageBackground,
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
 import Draggable from 'react-native-draggable';
-
-import {androidPermission} from '../../utils/cameraPermission';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {stickerCameraOptions} from '../../static/imagePickerOption';
+import {LaunchCamera, LaunchGallery} from './../../utils/imagePicker';
 
 const sampleSticker = require('../../assets/images/smile.png');
 
@@ -54,39 +52,37 @@ const StickerCamera = () => {
 	const [photoUri, setPhotoUri] = useState<string>('');
 
 	const onOpenCameraClick = (): void => {
-		ImagePicker.launchCamera(stickerCameraOptions, (response) => {
-			console.log(response);
-			if (response.error != null) {
-				if (response.error.match('Permissions')) {
-					androidPermission('CAMERA');
-				}
-			} else {
-				setPhotoUri(response.uri);
-			}
-		});
+		LaunchCamera(stickerCameraOptions)
+			.then((newUri) => {
+				setPhotoUri(newUri);
+			});
 	};
 
 	const onOpenGalleryClick = (): void => {
-		ImagePicker.launchImageLibrary(stickerCameraOptions, (response) => {
-			// move this to another file later
-			androidPermission('READ_EXTERNAL_STORAGE');
-			console.log(response);
-
-			if (response.error != null) {
-				console.log(`error = ${response.error}`);
-			} else {
-				setPhotoUri(response.uri);
-			}
-		});
+		LaunchGallery(stickerCameraOptions)
+			.then((newUri) => {
+				setPhotoUri(newUri);
+			});
 	};
 
 	return (
 		<View style={styles.container}>
 			{/* outermost container */}
 
-			<View style={styles.buttonStyle}>
-				<Button onPress={onOpenGalleryClick} title="gallery" />
-				<Button onPress={onOpenCameraClick} title="camera" />
+			<View>
+				<TouchableOpacity
+					style={styles.buttonStyle}
+					onPress={onOpenGalleryClick}
+				>
+					<Text>gallery</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonStyle}
+					onPress={onOpenCameraClick}
+				 	title="camera"
+				>
+					<Text>camera</Text>
+				</TouchableOpacity>
 			</View>
 
 			<View style={styles.imageContainer}>
