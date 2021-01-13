@@ -24,9 +24,8 @@ function FilterCamera() {
 					},
 					headerTintColor: '#fff',
 					headerTitleStyle: {
-						fontWeight: 'bold',
-						fontFamily: 'Nanum Brush Script',
-						fontSize: 24,
+						fontFamily: "NanumPenScript-Regular",
+						fontSize: 30,
 						fontStyle: "normal",
 						lineHeight: 29,
 						letterSpacing: 0,

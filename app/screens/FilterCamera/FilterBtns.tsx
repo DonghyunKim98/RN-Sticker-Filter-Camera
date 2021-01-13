@@ -12,7 +12,6 @@ interface ButtonProps {
 function FilterBtns({titles, btnStyle, textStyle, onPressFunc}: ButtonProps) {
 	const FilterBtnComponents = [];
 
-	console.log("렌더링중!");
 	for (const title in titles) {
 		FilterBtnComponents.push(
 			<TouchableOpacity

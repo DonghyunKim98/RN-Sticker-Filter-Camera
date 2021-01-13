@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
 		borderColor: "#707070",
 	},
 	filterBtnText: {
+		fontFamily: "NanumPenScript-Regular",
 		fontSize: 25,
-		fontFamily: "Nanum Pen Script",
 		fontStyle: "normal",
 		color: "#707070",
 		textAlign: "center",
@@ -54,10 +54,11 @@ const styles = StyleSheet.create({
 		backgroundColor: "#e8c0c0",
 	},
 	submitBtnText: {
+		fontFamily: "NanumPenScript-Regular",
+		fontStyle: "normal",
 		width: '100%',
 		height: 38,
-		fontSize: 31,
-		fontWeight: 'bold',
+		fontSize: 40,
 		letterSpacing: 0,
 		textAlign: 'center',
 		color: "#707070",
