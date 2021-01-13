@@ -27,7 +27,8 @@
     "react-native-image-picker": "^2.3.4",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.9",
-    "react-native-screens": "^2.14.0"
+    "react-native-screens": "^2.14.0",
+    "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -49,6 +50,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-    "assets" : ["./assets/fonts"]
+    "assets": [
+      "./assets/fonts"
+    ]
   }
 }

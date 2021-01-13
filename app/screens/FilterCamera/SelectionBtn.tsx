@@ -1,19 +1,21 @@
 import React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {Text, TouchableOpacity} from 'react-native';
 
 interface ButtonProps {
-	title: string,
 	style: object,
-    onPressFunc: Function,
+	onPressFunc: Function,
+	icon : IconDefinition,
 }
 
-function SelectionBtn({title, style, onPressFunc}: ButtonProps) {
+function SelectionBtn({style, onPressFunc, icon}: ButtonProps) {
 	return (
 		<TouchableOpacity
 			onPress={onPressFunc}
 			style={style}
 		>
-			<Text>{title}</Text>
+			<FontAwesomeIcon icon={icon}/>
 		</TouchableOpacity>
 	);
 }

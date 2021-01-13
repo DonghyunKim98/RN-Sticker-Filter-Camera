@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import {faCamera, faImages} from '@fortawesome/free-solid-svg-icons';
 import {filterCameraOptions} from '../../static/imagePickerOption';
 import {LaunchCamera, LaunchGallery} from '../../utils/imagePicker';
 import SelectionBtn from './SelectionBtn';
@@ -49,14 +50,14 @@ function FilterCameraSelctionScreen({navigation}) {
 		<View style={styles.container}>
 			<View style={styles.content}>
 				<SelectionBtn
-					title="카메라"
 					style={styles.btn}
 					onPressFunc={CameraBtnClickListener}
+					icon={faCamera}
 				/>
 				<SelectionBtn
-					title="갤러리"
 					style={styles.btn}
 					onPressFunc={GalleryBtnClickListener}
+					icon={faImages}
 				/>
 			</View>
 		</View>
