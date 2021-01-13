@@ -6,6 +6,7 @@ import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, Po
 import FilterBtns from './FilterBtns';
 import {filterTitles} from '../../static/FilterCamera/FilterBtnValue';
 import sliderProp from './../../static/FilterCamera/SliderValue';
+import HeaderBar from '../HeaderBar';
 
 const styles = StyleSheet.create({
 	container: {
@@ -119,6 +120,9 @@ function FilterCameraResultScreen({route}) {
 
 	return (
 		<View style={styles.container}>
+			<HeaderBar
+				title={"Choose your filter"}
+			/>
 			<View style={styles.content}>
 				{imgValue.img}
 			</View>
