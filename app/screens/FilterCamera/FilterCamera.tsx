@@ -11,14 +11,12 @@ function FilterCamera() {
 			<Stack.Screen
 				name="Selection"
 				component={FilterCameraSelctionScreen}
-				options={{title: '사진 선택하기'}}
+				options={{headerShown: false}}
 			/>
 			<Stack.Screen
 				name="Result"
 				component={FilterCameraResultScreen}
-				options={{
-					headerTitle: '필터 적용하기',
-				}}
+				options={{headerShown: false}}
 			/>
 		</Stack.Navigator>
 	);

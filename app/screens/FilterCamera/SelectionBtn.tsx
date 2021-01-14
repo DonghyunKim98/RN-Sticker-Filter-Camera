@@ -1,19 +1,26 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface ButtonProps {
-	title: string,
 	style: object,
-    onPressFunc: Function,
+	onPressFunc: Function,
+	icon : IconDefinition,
+	btnStyle: object,
 }
 
-function SelectionBtn({title, style, onPressFunc}: ButtonProps) {
+function SelectionBtn({style, btnStyle, onPressFunc, icon}: ButtonProps) {
 	return (
 		<TouchableOpacity
 			onPress={onPressFunc}
 			style={style}
 		>
-			<Text>{title}</Text>
+			<FontAwesomeIcon
+				icon={icon}
+				style={btnStyle}
+				size={40}
+			/>
 		</TouchableOpacity>
 	);
 }
