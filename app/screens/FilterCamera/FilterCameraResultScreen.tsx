@@ -1,12 +1,15 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useRef} from 'react';
 import {StyleSheet, Image, View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
+import CameraRoll from "@react-native-community/cameraroll";
+import {captureRef} from 'react-native-view-shot';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {GrayscaledImage, TintedFilterImage, WarmFilterImage, CoolFilterImgae, PolaroidFilterImage, SepiaFilterImage} from '../../static/FilterCamera/FilterValue';
 import FilterBtns from './FilterBtns';
 import {filterTitles} from '../../static/FilterCamera/FilterBtnValue';
 import sliderProp from './../../static/FilterCamera/SliderValue';
 import HeaderBar from '../HeaderBar';
+
 
 const styles = StyleSheet.create({
 	container: {
@@ -67,19 +70,24 @@ const styles = StyleSheet.create({
 });
 
 function FilterCameraResultScreen({route}) {
-	const {imgUri = ''}: { imgUri: string } = route.params;
+	const {uri = ''}: { uri: string, path: string } = route.params.res;
+	const imgRef = useRef();
 	const [imgValue, setImgValue] = useState({
 		img: <Image
 			style={styles.img}
 			source={{
-				uri: `${imgUri}`,
+				uri: `${uri}`,
 			}}
 		/>,
 		filter: 'default',
 		amount: 0.5,
 	});
-	const submitBtnClickListener = () => {
-		console.log(imgValue);
+	const submitBtnClickListener = async () => {
+		const curUri = await captureRef(imgRef,{
+			format: 'jpg',
+		});
+
+		CameraRoll.saveToCameraRoll(`${curUri}`)
 	};
 
 	const FilterBtnClickListener = useCallback((title: string, amount?: number): void => {
@@ -88,42 +96,37 @@ function FilterCameraResultScreen({route}) {
 		newImgValue.filter = `${title}`;
 		switch (title) {
 			case filterTitles.grayScale:
-				newImgValue.img = GrayscaledImage(imgUri, styles.img);
+				newImgValue.img = GrayscaledImage(uri, styles.img);
 				break;
 			case filterTitles.tint:
-				newImgValue.img = TintedFilterImage(imgUri, styles.img, amount);
+				newImgValue.img = TintedFilterImage(uri, styles.img, amount);
 				newImgValue.amount = amount;
 				break;
 			case filterTitles.warm:
-				newImgValue.img = WarmFilterImage(imgUri, styles.img);
+				newImgValue.img = WarmFilterImage(uri, styles.img);
 				break;
 			case filterTitles.cool:
-				newImgValue.img = CoolFilterImgae(imgUri, styles.img);
+				newImgValue.img = CoolFilterImgae(uri, styles.img);
 				break;
 			case filterTitles.polaroid:
-				newImgValue.img = PolaroidFilterImage(imgUri, styles.img);
+				newImgValue.img = PolaroidFilterImage(uri, styles.img);
 				break;
 			case filterTitles.sepia:
-				newImgValue.img = SepiaFilterImage(imgUri, styles.img);
+				newImgValue.img = SepiaFilterImage(uri, styles.img);
 				break;
 			default:
-				newImgValue.img = (
-					<View style={styles.content}>
-						{imgValue.img}
-					</View>
-				);
 				newImgValue.filter = 'default';
 				break;
 		}
 		setImgValue({...newImgValue});
-	}, [imgUri, imgValue]);
+	}, [uri, imgValue]);
 
 	return (
 		<View style={styles.container}>
 			<HeaderBar
 				title={"Choose your filter"}
 			/>
-			<View style={styles.content}>
+			<View style={styles.content} ref={imgRef} collapsable={false}>
 				{imgValue.img}
 			</View>
 			{
