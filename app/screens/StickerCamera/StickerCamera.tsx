@@ -54,14 +54,14 @@ const StickerCamera = () => {
 	const onOpenCameraClick = (): void => {
 		LaunchCamera(stickerCameraOptions)
 			.then((newUri) => {
-				setPhotoUri(newUri);
+				setPhotoUri(newUri.uri);
 			});
 	};
 
 	const onOpenGalleryClick = (): void => {
 		LaunchGallery(stickerCameraOptions)
 			.then((newUri) => {
-				setPhotoUri(newUri);
+				setPhotoUri(newUri.uri);
 			});
 	};
 

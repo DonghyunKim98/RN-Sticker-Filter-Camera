@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
 function FilterCameraSelctionScreen({navigation}) {
 	const CameraBtnClickListener = () : void => {
 		LaunchCamera(filterCameraOptions)
-			.then((imgUri) => {
+			.then((res) => {
 				navigation.navigate('Result', {
-					imgUri,
+					res,
 				});
 			})
 			.catch((err) => {
@@ -54,9 +54,9 @@ function FilterCameraSelctionScreen({navigation}) {
 
 	const GalleryBtnClickListener = () : void => {
 		LaunchGallery(filterCameraOptions)
-			.then((imgUri) => {
+			.then((res) => {
 				navigation.navigate('Result', {
-					imgUri,
+					res,
 				});
 			})
 			.catch((err) => {
