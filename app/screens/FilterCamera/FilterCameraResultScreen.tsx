@@ -83,11 +83,11 @@ function FilterCameraResultScreen({route}) {
 		amount: 0.5,
 	});
 	const submitBtnClickListener = async () => {
-		const curUri = await captureRef(imgRef,{
+		const curUri = await captureRef(imgRef, {
 			format: 'jpg',
 		});
 
-		CameraRoll.saveToCameraRoll(`${curUri}`)
+		CameraRoll.saveToCameraRoll(`${curUri}`);
 	};
 
 	const FilterBtnClickListener = useCallback((title: string, amount?: number): void => {
