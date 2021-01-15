@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {faCamera, faImages} from '@fortawesome/free-solid-svg-icons';
 import {filterCameraOptions} from '../../static/imagePickerOption';
 import {LaunchCamera, LaunchGallery} from '../../utils/imagePicker';
-import SelectionBtn from './SelectionBtn';
+import SelectionBtn from '../SelectionBtn';
 import HeaderBar from '../HeaderBar';
 
 const styles = StyleSheet.create({
@@ -22,13 +22,7 @@ const styles = StyleSheet.create({
 	btn: {
 		width: 81,
 		height: 81,
-		shadowColor: "rgba(0, 0, 0, 0.16)",
-		shadowOffset: {
-			width: 0,
-			height: 3,
-		  },
 		borderRadius: 50,
-		shadowOpacity: 1,
 		backgroundColor: "#ffffff",
 		margin: 10,
 		alignItems: 'center',
@@ -75,12 +69,16 @@ function FilterCameraSelctionScreen({navigation}) {
 					btnStyle={styles.btnIcon}
 					onPressFunc={CameraBtnClickListener}
 					icon={faCamera}
+					iconColor={'#707070'}
+					iconSize={40}
 				/>
 				<SelectionBtn
 					style={styles.btn}
 					btnStyle={styles.btnIcon}
 					onPressFunc={GalleryBtnClickListener}
 					icon={faImages}
+					iconColor={'#707070'}
+					iconSize={40}
 				/>
 			</View>
 		</View>

@@ -14,7 +14,7 @@ const App = () => {
 				<Stack.Screen
 					name="Home"
 					component={Home}
-					options={{title: 'Camerabang 📸'}}
+					options={{headerShown: false}}
 				/>
 				<Stack.Screen
 					name="FilterCamera"
@@ -24,7 +24,7 @@ const App = () => {
 				<Stack.Screen
 					name="StickerCamera"
 					component={StickerCamera}
-					options={{title: 'Sticker Camera'}}
+					options={{headerShown: false}}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
