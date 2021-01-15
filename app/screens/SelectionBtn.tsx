@@ -5,12 +5,14 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface ButtonProps {
 	style: object,
+	btnStyle: object,
 	onPressFunc: Function,
 	icon : IconDefinition,
-	btnStyle: object,
+	iconColor: string,
+	iconSize: number,
 }
 
-function SelectionBtn({style, btnStyle, onPressFunc, icon}: ButtonProps) {
+function SelectionBtn({style, btnStyle, onPressFunc, icon, iconColor, iconSize}: ButtonProps) {
 	return (
 		<TouchableOpacity
 			onPress={onPressFunc}
@@ -18,8 +20,9 @@ function SelectionBtn({style, btnStyle, onPressFunc, icon}: ButtonProps) {
 		>
 			<FontAwesomeIcon
 				icon={icon}
+				size={iconSize}
+				color={iconColor}
 				style={btnStyle}
-				size={40}
 			/>
 		</TouchableOpacity>
 	);

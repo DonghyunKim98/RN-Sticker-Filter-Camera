@@ -1,22 +1,66 @@
 import * as React from 'react';
-import {Text, View, Button, StyleSheet} from 'react-native';
-import {androidPermission} from '../../utils/cameraPermission';
+import {Text, View, StyleSheet} from 'react-native';
+import {faCamera, faMagic, faStickyNote} from '@fortawesome/free-solid-svg-icons';
+import SelectionBtn from '../SelectionBtn';
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
+	},
+	body: {
+		width: '100%',
+		height: '100%',
+		zIndex: 1,
+		backgroundColor: '#4c4c4c',
+	},
+	header: {
+		position: 'absolute',
+		width: 300,
+		height: 180,
+		top: '10%',
+		left: '50%',
+		transform: [{translateX: -150}],
+		borderRadius: 96,
+		backgroundColor: '#ffffff',
 	},
 	title: {
-		fontSize: 30,
-		margin: 40,
+		fontFamily: "NanumPenScript-Regular",
+		fontSize: 50,
+		fontStyle: "normal",
+		color: "#707070",
+		textAlign: "center",
 	},
-	mainButtonStyle: {},
-	space: {
+	content: {
+		position: 'absolute',
+		height: 80,
+		top: '50%',
+		left: '50%',
+		transform: [{translateX: -50}],
+		justifyContent: 'flex-start',
+	},
+	btn: {
+		width: 81,
+		height: 81,
+		borderRadius: 50,
+		backgroundColor: "#ffffff",
 		margin: 10,
+		alignItems: 'center',
 	},
+	btnIcon: {
+		marginTop: '30%',
+		color: '#707070',
+	},
+	fotter: {
+		position: 'absolute',
+		width: 170,
+		height: 20,
+		left: '30%',
+		bottom: '7%',
+		fontFamily: 'NanumPenScript-Regular',
+		fontSize: 20,
+		textAlign: 'center',
+		color: '#ffffff',
+	}
 });
 
 const Home = ({navigation}) => {
@@ -30,29 +74,30 @@ const Home = ({navigation}) => {
 
 	return (
 		<View style={styles.container}>
-			{/* title */}
-			<Text style={styles.title}>돌하르방 카메라</Text>
-
-			{/* button 1 : filter camera  */}
-			<Button
-				style={styles.mainButtonStyle}
-				onPress={() => {
-					navigateToFilterScreen();
-				}}
-				title={'필터 카메라'}
-			/>
-			{/* 버튼과 버튼 사이를 띄워두고 싶은데 어떻게 해야하지 ...? */}
-			<View style={styles.space} />
-			{/* button 2 : sticker camera */}
-			<Button
-				onPress={() => navigateToStickerScreen()}
-				title={'스티커 카메라'}
-			/>
-			{/* 임시 버튼 => Permission을 구하는 버튼입니다. */}
-			<Button
-				title={'Camera Permission'}
-				onPress={() => androidPermission("CAMERA")}
-			/>
+			<View style={styles.body}>
+				<View style={styles.header}>
+					<Text style={styles.title}>{'Capture\n Your\n Moment'}</Text>
+				</View>
+				<View style={styles.content}>
+					<SelectionBtn
+						style={styles.btn}
+						btnStyle={styles.btnIcon}
+						onPressFunc={navigateToFilterScreen}
+						icon={faMagic}
+						iconColor={'#707070'}
+						iconSize={30}
+					/>
+					<SelectionBtn
+						style={styles.btn}
+						btnStyle={styles.btnIcon}
+						onPressFunc={navigateToStickerScreen}
+						icon={faStickyNote}
+						iconColor={'#707070'}
+						iconSize={30}
+					/>
+				</View>
+				<Text style={styles.fotter}>{'Made by FORIF 🧡'}</Text>
+			</View>
 		</View>
 	);
 };
