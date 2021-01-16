@@ -1,0 +1,61 @@
+{
+  "name": "dolhareubang",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "tsc --noEmit && eslint \"**/**/*.ts\"",
+    "lint-fix": "tsc --noEmit && eslint \"*/**/*.{js,ts,tsx}\" --quiet --fix"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
+    "@react-native-community/cameraroll": "^4.0.1",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/slider": "^3.0.3",
+    "@react-navigation/native": "^5.8.9",
+    "@react-navigation/stack": "^5.12.6",
+    "eslint-config-naver": "^2.1.0",
+    "react": "16.13.1",
+    "react-native": "0.63.3",
+    "react-native-canvas": "^0.1.37",
+    "react-native-color-matrix-image-filters": "^5.2.10",
+    "react-native-draggable": "^3.3.0",
+    "react-native-gesture-handler": "^1.8.0",
+    "react-native-image-picker": "^2.3.4",
+    "react-native-reanimated": "^1.13.1",
+    "react-native-safe-area-context": "^3.1.9",
+    "react-native-screens": "^2.14.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-view-shot": "^3.1.2",
+    "react-native-webview": "^11.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.1.0",
+    "@types/react": "^16.9.56",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.21.5",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1",
+    "typescript": "^4.1.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  }
+}
