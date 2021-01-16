@@ -1,29 +1,33 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {sticker} from "../../assets";
 
 interface ButtonProps {
-    titles: object,
+	titles: Array<sticker>,
 	btnStyle: object,
-	textStyle: object,
-    onPressFunc: Function,
+	onPressFunc: Function,
 }
 
+const styles = StyleSheet.create({
+	logo: {
+		marginTop: "auto",
+		marginBottom: "auto",
+		width: 104,
+		height: 104,
+	},
+});
 
-function StickerBtns({titles, btnStyle, textStyle, onPressFunc}: ButtonProps) {
+function StickerBtns({titles, btnStyle, onPressFunc}: ButtonProps) {
 	const stickerBtnComponents = [];
-
-	for (const title in titles) {
-		stickerBtnComponents.push(
-			<TouchableOpacity
-				key={title}
-				onPress={() => { titles[title] === "Tint" ? onPressFunc(titles[title], 0.5) : onPressFunc(titles[title]); }}
-				style={btnStyle}
-			>
-				<Text style={textStyle}>{titles[title]}</Text>
-			</TouchableOpacity>,
-		);
-	}
-
+	titles.map(title => stickerBtnComponents.push(
+		<TouchableOpacity
+			key={title.title}
+			// onPress={() => { titles[title] === "Tint" ? onPressFunc(titles[title], 0.5) : onPressFunc(titles[title]); }}
+			style={btnStyle}
+		>
+			<Image source={title.image} style={styles.logo}/>
+		</TouchableOpacity>,
+	));
 	return (
 		<>
 			{stickerBtnComponents}
