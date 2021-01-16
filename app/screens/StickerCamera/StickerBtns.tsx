@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {sticker} from "../../assets";
+import {Sticker} from "../../assets";
 
 interface ButtonProps {
-	titles: Array<sticker>,
+	titles: Array<Sticker>,
 	btnStyle: object,
 	onPressFunc: Function,
 }
@@ -23,7 +23,7 @@ function StickerBtns({titles, btnStyle, onPressFunc}: ButtonProps) {
 	titles.map((title) => stickerBtnComponents.push(
 		<TouchableOpacity
 			key={title.title}
-			onPress={() => { onPressFunc(title.image); }}
+			onPress={() => { onPressFunc(title.url, title.image) }}
 			style={btnStyle}
 		>
 			<Image source={title.image} style={styles.logo}/>

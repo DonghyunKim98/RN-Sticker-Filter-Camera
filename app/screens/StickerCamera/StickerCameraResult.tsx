@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
-import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, StyleSheet, Text, View, Image as RNimage} from 'react-native';
+import Canvas, {Image as CanvasImage} from 'react-native-canvas';
 import Draggable from 'react-native-draggable';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {captureRef} from 'react-native-view-shot';
 import CameraRoll from '@react-native-community/cameraroll';
 import HeaderBar from '../HeaderBar';
 import StickerBtns from './StickerBtns';
@@ -81,23 +81,33 @@ const styles = StyleSheet.create({
 const StickerCamera = ({route}) => {
 	const {uri} = route.params.res;
 	const [stickerUri, setStickerUri] = useState(sampleSticker);
-	const imgRef = useRef();
+	const [sticker, setSticker] = useState(sampleSticker);
+	const [stickerX, setX] = useState(215);
+	const [stickerY, setY] = useState(360);
 	const stickerRef = useRef();
 
-	function StickerBtnClickListener(newUri) {
+	function StickerBtnClickListener(newUri, image) {
 		setStickerUri(newUri);
+		setSticker(image);
 	}
 	const submitBtnClickListener = async () => {
-		imgRef.measure((fx,fy,width,height,pageX,pageY)=>{
-			console.log(fx);
-			console.log(fy);
-		});
+		const canvas = new Canvas();
+		const ctx = canvas.getContext("2d");
+		const baseImage = new CanvasImage(new Canvas())
+		const sticker = new CanvasImage(new Canvas())
+		ctx.globalCompositeOperation = "source-over";
 
-		// 최종변환된 사진이 들어오는 곳
-		// const curUri = await captureRef(imgRef, {
-		// 	format: 'jpg',
-		// });
-
+		baseImage.onLoad = () => {
+			ctx.drawImage(baseImage, 0, 0);
+			console.log("?")
+		}
+		sticker.onLoad = () => {
+			ctx.drawImage(sticker, stickerX, stickerY);
+		}
+		baseImage.src = uri;
+		sticker.src = stickerUri;
+		console.log(canvas.toDataURL("image/png"))
+		const result: string = await canvas.toDataURL("image/png");
 		// CameraRoll.saveToCameraRoll(`${curUri}`);
 	};
 
@@ -114,12 +124,17 @@ const StickerCamera = ({route}) => {
 							uri: `${uri}`,
 						}}>
 						<Draggable
-							x={150} y={300}
+							x={200}
+							y={300}
+							onPressOut={_dispatchInstances => {
+								setX(_dispatchInstances.nativeEvent.pageX)
+								setY(_dispatchInstances.nativeEvent.pageY)
+							}}
 						>
 							<View ref={stickerRef} collapsable={false}>
 								<Image
 									style={styles.sampleImageStyle}
-									source={stickerUri}
+									source={sticker}
 								/>
 							</View>
 						</Draggable>
