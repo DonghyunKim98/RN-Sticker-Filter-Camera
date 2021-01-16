@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import Draggable from 'react-native-draggable';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {captureRef} from 'react-native-view-shot';
+import CameraRoll from '@react-native-community/cameraroll';
 import HeaderBar from '../HeaderBar';
 import StickerBtns from './StickerBtns';
 import {stickerImages} from "../../assets";
@@ -78,11 +80,26 @@ const styles = StyleSheet.create({
 
 const StickerCamera = ({route}) => {
 	const {uri} = route.params.res;
-	const [stickerUri,setStickerUri] = useState(sampleSticker);
+	const [stickerUri, setStickerUri] = useState(sampleSticker);
+	const imgRef = useRef();
+	const stickerRef = useRef();
 
 	function StickerBtnClickListener(newUri) {
 		setStickerUri(newUri);
 	}
+	const submitBtnClickListener = async () => {
+		imgRef.measure((fx,fy,width,height,pageX,pageY)=>{
+			console.log(fx);
+			console.log(fy);
+		});
+
+		// 최종변환된 사진이 들어오는 곳
+		// const curUri = await captureRef(imgRef, {
+		// 	format: 'jpg',
+		// });
+
+		// CameraRoll.saveToCameraRoll(`${curUri}`);
+	};
 
 	return (
 		<View style={styles.container}>
@@ -96,8 +113,15 @@ const StickerCamera = ({route}) => {
 						source={{
 							uri: `${uri}`,
 						}}>
-						<Draggable x={150} y={300}>
-							<Image style={styles.sampleImageStyle} source={stickerUri}/>
+						<Draggable
+							x={150} y={300}
+						>
+							<View ref={stickerRef} collapsable={false}>
+								<Image
+									style={styles.sampleImageStyle}
+									source={stickerUri}
+								/>
+							</View>
 						</Draggable>
 					</ImageBackground>
 				) : (
@@ -115,7 +139,7 @@ const StickerCamera = ({route}) => {
 				/>
 			</ScrollView>
 			<TouchableOpacity
-				onPress={() => console.log("submit!")}
+				onPress={() => submitBtnClickListener()}
 				style={styles.submitBtn}
 			>
 				<Text style={styles.submitBtnText}>Apply Sticker!</Text>
