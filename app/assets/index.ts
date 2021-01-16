@@ -13,31 +13,33 @@ export interface sticker {
     image: any
 }
 
-export const stickerImages = [{
-    title: "smile",
-    image: smile
-}, {
-    title: "bow",
-    image: bow
-}, {
-    title: "favourites",
-    image: favourites
-}, {
-    title: "heart",
-    image: heart
-}, {
-    title: "kitty",
-    image: kitty
-}, {
-    title: "pawPrint",
-    image: pawPrint
-}, {
-    title: "sparkle with border",
-    image: sparkles
-}, {
-    title: "sparkle",
-    image: sparkles1
-}, {
-    title: "star",
-    image: star
-}];
+export const stickerImages = [
+	{
+		title: "smile",
+		image: smile,
+	}, {
+		title: "bow",
+		image: bow,
+	}, {
+		title: "favourites",
+		image: favourites,
+	}, {
+		title: "heart",
+		image: heart,
+	}, {
+		title: "kitty",
+		image: kitty,
+	}, {
+		title: "pawPrint",
+		image: pawPrint,
+	}, {
+		title: "sparkle with border",
+		image: sparkles,
+	}, {
+		title: "sparkle",
+		image: sparkles1,
+	}, {
+		title: "star",
+		image: star,
+	},
+];

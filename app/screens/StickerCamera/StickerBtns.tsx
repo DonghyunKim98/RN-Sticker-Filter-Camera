@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
 
 function StickerBtns({titles, btnStyle, onPressFunc}: ButtonProps) {
 	const stickerBtnComponents = [];
-	titles.map(title => stickerBtnComponents.push(
+
+	titles.map((title) => stickerBtnComponents.push(
 		<TouchableOpacity
 			key={title.title}
-			// onPress={() => { titles[title] === "Tint" ? onPressFunc(titles[title], 0.5) : onPressFunc(titles[title]); }}
+			onPress={() => { onPressFunc(title.image); }}
 			style={btnStyle}
 		>
 			<Image source={title.image} style={styles.logo}/>
